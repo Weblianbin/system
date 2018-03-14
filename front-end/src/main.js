@@ -9,6 +9,10 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+
+// 把主机接口定义为全局变量
+global.ApiUrl = 'http://localhost:3000'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
