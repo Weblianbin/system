@@ -1,34 +1,42 @@
 <template>
-  <div>
-    sdfas
+  <div class="MainBox">
+    <Header @openOrClose='openOrClose'></Header>
+    <el-container>
+      <Aside :isOpenOrClose='isOpenOrClose'></Aside>
+      <el-main class="mainChildren base_background">
+        <router-view></router-view>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
 <script>
+import Header from '@/components/Header/index.vue'
+import Aside from '@/components/Aside/index.vue'
 export default {
-  name: 'Main',
+  components: {
+    Header,
+    Aside
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      isOpenOrClose: null
+    }
+  },
+  methods: {
+    openOrClose (value) {
+      this.isOpenOrClose = value
     }
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.mainChildren{
+  height: calc(100% - 50px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

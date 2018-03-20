@@ -7,6 +7,11 @@ import router from './router'
 import ElementUI from 'element-ui'
 // 导入样式
 import 'element-ui/lib/theme-chalk/index.css'
+// 导入第三方图标
+import 'font-awesome/css/font-awesome.css'
+// 导入公用样式
+import './style/reset.css'
+import './style/common.css'
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 

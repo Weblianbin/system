@@ -5,8 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+// 加载注册模块
+var register = require('./routes/register')
+// 加载登录模块
+var login = require('./routes/login')
+// 加载海鲜种类模块
+var seafood_type = require('./routes/seafood_type')
 
 var app = express();
 
@@ -29,25 +33,13 @@ app.all('*', (req, res, next) => {
   res.header("Content-Type", "application/json;charset=utf-8");
   next()
 })
+// 使用注册路由
+app.use('/register', register)
+// 使用登录路由
+app.use('/login', login)
+// 使用海鲜种类路由
+app.use('/seafood_type', seafood_type)
 // app.use('/', index);
 // app.use('/users', users);
-
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
 
 module.exports = app;

@@ -2,41 +2,21 @@
   <div class='base_background loginBox'>
     <div class="box">
       <div class="title">
-        <div v-if="loginShow">
+        <div>
           <b>登&nbsp;录</b>
         </div>
-        <div v-else>
-          <b>注&nbsp;册</b>
-        </div>
       </div>
-      <div v-if="loginShow">
-         <el-form :model="loginObj" status-icon :rules="loginRules" ref="loginObj" label-width="60px" class="demo-ruleForm">
-          <el-form-item class="loginText" label="账号" prop="account">
-            <el-input type="text" placeholder="请输入账号" v-model="loginObj.account" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input class="loginText" type="password" placeholder="请输入密码" v-model="loginObj.password" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item class="btnBox">
-            <el-button type="primary" @click="submitForm('loginObj')">登录</el-button>
-            <span class="register" @click="goRegister()">还没有账号,点击注册</span>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div v-else>
+      <div>
          <el-form :model="loginObj" status-icon :rules="loginRules" ref="loginObj" label-width="100px" class="demo-ruleForm">
-          <el-form-item class="loginText" label="账号" prop="account">
-            <el-input type="text" placeholder="请输入账号" v-model="loginObj.account" auto-complete="off"></el-input>
+          <el-form-item class="loginText" label="用户名" prop="account">
+            <el-input type="text" placeholder="请输入用户名" v-model="loginObj.account" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input class="loginText" type="password" placeholder="请输入密码" v-model="loginObj.password" auto-complete="off"></el-input>
           </el-form-item>
-          <el-form-item label="确认密码" prop="password1">
-            <el-input class="loginText" type="password" placeholder="请再次输入密码" v-model="loginObj.passwordOnce" auto-complete="off"></el-input>
-          </el-form-item>
           <el-form-item class="btnBox">
-            <el-button type="primary" @click="submitForm('loginObj')">注册</el-button>
-            <span class="register" @click="goRegister()">已有账号,点击登录</span>
+            <el-button type="primary" @click="submitForm(loginObj)">登录</el-button>
+            <span class="register" @click="goRegister()">还没有账号,点击注册</span>
           </el-form-item>
         </el-form>
       </div>
@@ -44,22 +24,22 @@
   </div>
 </template>
 <script>
+import { login } from '@/api/login.js'
 export default {
   data () {
-    // var account = (rule, value, callback) => {
-    //   if (value === '') {
-    //     callback(new Error('请输入账号'))
-    //   } else {
-    //     callback()
-    //   }
-    // }
-    // var password = (rule, value, callback) => {
-    //   if (value === '') {
-    //     callback(new Error('请输入密码'))
-    //   } else {
-    //     callback()
-    //   }
-    // }
+    var checkAccount = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('账号不能为空'))
+      }
+      callback()
+    }
+    var checkPassword = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        callback()
+      }
+    }
     return {
       labelPosition: 'right',
       loginObj: {
@@ -68,38 +48,52 @@ export default {
       },
       loginRules: {
         account: [
-          { required: true, message: '账号不能为空', trigger: 'blur' }
-          // { validator: account, trigger: 'blur' }
+          { validator: checkAccount, trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '密码不能为空', trigger: 'blur' }
-          // { validator: password, trigger: 'blur' }
-        ],
-        passwordOnce: [
-          { required: true, message: '密码不能为空', trigger: 'blur' }
-          // { validator: password, trigger: 'blur' }
+          { validator: checkPassword, trigger: 'blur' }
         ]
-      },
-      loginShow: true
+      }
     }
   },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
+    submitForm (loginObj) {
+      this.$refs.loginObj.validate((value) => {
+        if (value) {
+          console.log('loginObj', loginObj)
+          this.loginHandle(loginObj)
         } else {
-          console.log('error submit!!')
+          this.$message({
+            message: '用户名或密码不能为空',
+            type: 'error'
+          })
+          this.$router.push('/login')
           return false
         }
       })
     },
     goRegister () {
-      console.log('>>>>>>>>>')
-      if (this.loginShow) {
-        this.loginShow = false
+      this.$router.push('/register')
+    },
+    async loginHandle (data) {
+      let res = await login({
+        'user': data
+      })
+      console.log('res', res)
+      if (res.data.code === '1111') {
+        // 登录成功
+        this.$message({
+          message: res.data.msg,
+          type: 'success'
+        })
+        this.$router.push('/')
       } else {
-        this.loginShow = true
+        // 登录失败
+        this.$message({
+          message: res.data.msg,
+          type: 'error'
+        })
+        this.$router.push('/login')
       }
     }
   }
