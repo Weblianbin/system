@@ -11,6 +11,10 @@ var register = require('./routes/register')
 var login = require('./routes/login')
 // 加载海鲜种类模块
 var seafood_type = require('./routes/seafood_type')
+// 加载海鲜名称模块
+var seafood = require('./routes/seafood')
+// 加载客户模块
+var customer = require('./routes/customer')
 
 var app = express();
 
@@ -39,7 +43,9 @@ app.use('/register', register)
 app.use('/login', login)
 // 使用海鲜种类路由
 app.use('/seafood_type', seafood_type)
-// app.use('/', index);
-// app.use('/users', users);
+// 使用海鲜名称路由
+app.use('/seafood', seafood)
+// 使用客户信息路由
+app.use('/customer', customer)
 
 module.exports = app;

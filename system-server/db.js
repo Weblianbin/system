@@ -22,7 +22,7 @@ db.connection.on('error', function (err) {
  * 
  * module.exports.User = db.model('User', userSchema)---->B+C
  * */
-// 管理员
+// 普通管理员
 var userSchema = new db.Schema({
   account: {
     // 字段的类型
@@ -36,28 +36,77 @@ var userSchema = new db.Schema({
   }
 })
 var User = db.model('User', userSchema)
+
 // 海鲜种类表
 var seafood_type = new db.Schema({
   name: String,//类型
   info: String//描述
 })
 var SeafoodType = db.model('SeafoodType', seafood_type)
+
 // 海鲜表
 var seafood = new db.Schema({
   // 海鲜名称
-  name: String,
+  seafoodName: String,
   // 描述
-  info: String,
-  //类型,ref 设置关联,值是关联表的名称
-  type: {
-    type: db.Schema.Types.ObjectId,
-    ref: 'seafood_type'
-  }
+  seafoodInfo: String,
+  // 海鲜种类
+  name: String
 })
 var Seafood = db.model('Seafood', seafood)
+
+// 客户表
+var customer = new db.Schema({
+  customerName: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  gender: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  phoneNumber: {
+    // 字段的类型
+    type: Number,
+    // 设置默认值
+    default: ''
+  },
+  shopTime: {
+    // 字段的类型
+    type: Number,
+    // 设置默认值
+    default: ''
+  },
+  // 数量
+  amount: {
+    // 字段的类型
+    type: Number,
+    // 设置默认值
+    default: ''
+  },
+  // 海鲜名称
+  seafoodName: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  name: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  }
+})
+var Customer = db.model('Customer', customer)
 
 module.exports = {
   User,
   SeafoodType,
-  Seafood
+  Seafood,
+  Customer
 }
