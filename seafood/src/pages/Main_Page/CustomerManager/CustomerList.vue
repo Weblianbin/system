@@ -116,7 +116,6 @@ export default {
     },
     async seafoodTypeListAllHandle () {
       let res = await seafoodTypeListAll()
-      console.log('res', res)
       this.seafoodTypes = res.data.data
     },
     // 列表
@@ -129,10 +128,8 @@ export default {
       let res = await CustomerList({
         'pageInfo': this.pageObj
       })
-      console.log('res', res)
       let arr = [...res.data.data]
       arr.forEach((item) => {
-        console.log('item', item)
         item.shopTime = transformDate(item.shopTime)
       })
       this.tableData = arr
@@ -146,19 +143,15 @@ export default {
           obj[key] = row[key]
         }
       }
-      console.log('obj', obj)
       this.formObj = obj
-      console.log(transformDate(this.formObj.shopTime))
       this.customerAddOrEdit = true
       this.titleText = '编辑海鲜种类'
     },
     // 编辑请求
     async editCustomerHandle (data) {
-      console.log('编辑', data)
       let res = await editCustomer({
         'customer': data
       })
-      console.log('res', res)
       if (res.data.code === '1111') {
         // 海鲜种类,修改成功
         this.$message({
@@ -200,11 +193,9 @@ export default {
     },
     // 删除请求
     async deleteCustomerHandle (data) {
-      console.log('删除', data)
       let res = await deleteCustomer({
         'customer': data
       })
-      console.log('res', res)
       if (res.data.code === '1111') {
         // 删除成功
         this.$message({
@@ -235,7 +226,6 @@ export default {
       let res = await addCustomer({
         'customer': data
       })
-      console.log('res', res)
       if (res.data.code === '1111') {
         // 海鲜种类,添加成功
         this.$message({

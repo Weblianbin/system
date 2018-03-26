@@ -35,7 +35,6 @@ export default {
   },
   methods: {
     showAside (val) {
-      console.log('val', val)
       this.showAsideBoolean = val
     }
   }

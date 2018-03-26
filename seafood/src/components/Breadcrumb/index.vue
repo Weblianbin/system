@@ -8,7 +8,7 @@
         :key="index"
         v-else-if="routesArr.length>0"
       >
-        <span @click="test(item.path)">{{item.meta.title}}</span>
+        <span>{{item.meta.title}}</span>
       </el-breadcrumb-item>
     </el-breadcrumb>
   </div>
@@ -17,29 +17,20 @@
 export default {
   watch: {
     $route () {
-      console.log(this.$route)
-      console.log(this.$route.matched)
       let arr = this.$route.matched
       // 路由输出是空的,导致点击无效
       arr[0].path = '/home'
       this.routesArr = arr
-      console.log('this.routesArr--watch', this.routesArr)
     }
   },
   mounted () {
     let arr = this.$route.matched
     arr[0].path = '/home'
     this.routesArr = arr
-    console.log('this.routesArr--mounted', this.routesArr)
   },
   data () {
     return {
       routesArr: []
-    }
-  },
-  methods: {
-    test (path) {
-      console.log('path', path)
     }
   }
 }

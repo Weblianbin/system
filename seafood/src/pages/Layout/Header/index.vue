@@ -37,7 +37,6 @@ export default {
       } else {
         this.showAsideBoolean = true
       }
-      console.log('this.showAsideBoolean', this.showAsideBoolean)
       this.$emit('showAside', this.showAsideBoolean)
     }
   }

@@ -103,10 +103,39 @@ var customer = new db.Schema({
   }
 })
 var Customer = db.model('Customer', customer)
+// 销售表
+var sell = new db.Schema({
+  name: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  seafoodName: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  sellTotal: {
+    // 字段的类型
+    type: Number,
+    // 设置默认值
+    default: ''
+  },
+  time: {
+    // 字段的类型
+    type: Number,
+    // 设置默认值
+    default: ''
+  }
+})
+var Sell = db.model('Sell', sell)
 
 module.exports = {
   User,
   SeafoodType,
   Seafood,
-  Customer
+  Customer,
+  Sell
 }

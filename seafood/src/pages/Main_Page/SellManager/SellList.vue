@@ -22,8 +22,20 @@
         </el-table-column>
         <el-table-column
           align="center"
-          prop="info"
-          label="简介"
+          prop="seafoodName"
+          label="海鲜名称"
+          >
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="sellTotal"
+          label="销售总量"
+          >
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="time"
+          label="日期"
           >
         </el-table-column>
         <el-table-column
@@ -42,23 +54,25 @@
       </el-pagination>
     </div>
     <!-- 新增,修改 -->
-    <el-dialog :title="titleText" modal center :visible.sync="seafoodTypeAddOrEdit">
-      <SeafoodTypeAddOrEdit
-        v-if="seafoodTypeAddOrEdit"
+    <el-dialog :title="titleText" modal center :visible.sync="sellAddOrEdit">
+      <SellAddOrEdit
+        v-if="sellAddOrEdit"
         :form='formObj'
         @cancleHandle='cancleHandle'
         @sumitHandle='sumitHandle'
       >
-      </SeafoodTypeAddOrEdit>
+      </SellAddOrEdit>
     </el-dialog>
   </div>
 </template>
 <script>
-import { seafoodTypeList, addSeafoodType, editSeafoodType, deleteSeafoodType } from '@/api/seafoodType.js'
-import SeafoodTypeAddOrEdit from '@/components/SeafoodTypeAddOrEdit/index.vue'
+import { seafoodTypeListAll } from '@/api/seafoodType.js'
+import { sellList, addSell, editSell, deleteSell } from '@/api/sell.js'
+import SellAddOrEdit from '@/components/sellAddOrEdit/index.vue'
+import { transformDate } from '@/utils/dateTransform.js'
 export default {
   components: {
-    SeafoodTypeAddOrEdit
+    SellAddOrEdit
   },
   data () {
     return {
@@ -66,30 +80,40 @@ export default {
       pageIndex: 1,
       pageCount: '',
       pageObj: {},
-      seafoodTypeAddOrEdit: false,
-      titleText: ''
+      sellAddOrEdit: false,
+      titleText: '',
+      formObj: {},
+      seafoodTypes: []
     }
   },
   created () {
-    this.seafoodTypeListHandle()
+    this.sellListHandle()
+    this.seafoodTypeListAllHandle()
   },
   methods: {
     pageChange (page) {
       this.pageIndex = page
-      this.seafoodTypeListHandle()
+      this.sellListHandle()
     },
-    async seafoodTypeListHandle () {
+    // 请求海鲜种类列表,不分页
+    async seafoodTypeListAllHandle () {
+      let res = await seafoodTypeListAll()
+      this.seafoodTypes = res.data.data
+    },
+    async sellListHandle () {
       // 用于清空,避免重复
       let obj = {}
       obj.index = this.pageIndex
       obj.size = 2
       this.pageObj = obj
-      console.log('this.pageObj', this.pageObj)
-      let res = await seafoodTypeList({
+      let res = await sellList({
         'pageInfo': this.pageObj
       })
-      console.log('res', res)
-      this.tableData = res.data.data
+      let arr = [...res.data.data]
+      arr.forEach((item) => {
+        item.time = transformDate(item.time)
+      })
+      this.tableData = arr
       this.pageCount = res.data.count
     },
     // 编辑事件
@@ -101,31 +125,29 @@ export default {
         }
       }
       this.formObj = obj
-      this.seafoodTypeAddOrEdit = true
-      this.titleText = '编辑海鲜种类'
+      this.sellAddOrEdit = true
+      this.titleText = '编辑销售记录'
     },
     // 编辑请求
-    async editSeafoodTypeHandle (data) {
-      console.log('编辑', data)
-      let res = await editSeafoodType({
-        'seafoodType': data
+    async editSellHandle (data) {
+      let res = await editSell({
+        'sell': data
       })
-      console.log('res', res)
       if (res.data.code === '1111') {
-        // 海鲜种类,修改成功
+        // 修改成功
         this.$message({
           message: res.data.msg,
           type: 'success'
         })
-        this.seafoodTypeListHandle()
-        this.seafoodTypeAddOrEdit = false
+        this.sellListHandle()
+        this.sellAddOrEdit = false
       } else {
-        // 海鲜种类,添加失败
+        // 添加失败
         this.$message({
           message: res.data.msg,
           type: 'error'
         })
-        this.seafoodTypeAddOrEdit = true
+        this.sellAddOrEdit = true
       }
     },
     // 删除事件
@@ -136,7 +158,7 @@ export default {
         cancelButtonText: '取消',
         callback: action => {
           if (action === 'confirm') {
-            this.deleteSeafoodTypeHandle(row)
+            this.deleteSellHandle(row)
             this.$message({
               type: 'success',
               message: '删除成功'
@@ -151,19 +173,17 @@ export default {
       })
     },
     // 删除请求
-    async deleteSeafoodTypeHandle (data) {
-      console.log('删除', data)
-      let res = await deleteSeafoodType({
-        'seafoodType': data
+    async deleteSellHandle (data) {
+      let res = await deleteSell({
+        'sell': data
       })
-      console.log('res', res)
       if (res.data.code === '1111') {
         // 删除成功
         this.$message({
           message: res.data.msg,
           type: 'success'
         })
-        this.seafoodTypeListHandle()
+        this.sellListHandle()
       } else {
         // 删除失败
         this.$message({
@@ -176,44 +196,43 @@ export default {
     clickAdd () {
       var obj = {}
       // select 设置初始值
-      obj.area = []
+      obj.seafoodTypes = this.seafoodTypes
       this.formObj = obj
-      this.seafoodTypeAddOrEdit = true
-      this.titleText = '新增海鲜种类'
+      this.sellAddOrEdit = true
+      this.titleText = '新增销售记录'
     },
     // 新增请求
-    async addSeafoodTypeHandle (data) {
-      let res = await addSeafoodType({
-        'seafoodType': data
+    async addSellHandle (data) {
+      let res = await addSell({
+        'sell': data
       })
-      console.log('res', res)
       if (res.data.code === '1111') {
         // 海鲜种类,添加成功
         this.$message({
           message: res.data.msg,
           type: 'success'
         })
-        this.seafoodTypeListHandle()
-        this.seafoodTypeAddOrEdit = false
+        this.sellListHandle()
+        this.sellAddOrEdit = false
       } else {
         // 海鲜种类,添加失败
         this.$message({
           message: res.data.msg,
           type: 'error'
         })
-        this.seafoodTypeAddOrEdit = true
+        this.sellAddOrEdit = true
       }
     },
     // 组件--修改,新增的取消和提交
     cancleHandle () {
-      this.seafoodTypeAddOrEdit = false
+      this.sellAddOrEdit = false
     },
     sumitHandle (obj, flag) {
       // 判断传入到组件中是否有这个键存在
       if (flag === '修改') {
-        this.editSeafoodTypeHandle(obj)
+        this.editSellHandle(obj)
       } else {
-        this.addSeafoodTypeHandle(obj)
+        this.addSellHandle(obj)
       }
     }
   }

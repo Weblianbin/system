@@ -94,7 +94,6 @@ export default {
     if (this.formObj.hasOwnProperty('name')) {
       this.addOrEditFlag = '修改'
       this.selectFlag = true
-      this.selectFlag = true
     } else {
       this.addOrEditFlag = '新增'
       this.selectFlag = false
@@ -108,7 +107,6 @@ export default {
       // form
       this.$refs.form.validate((valid) => {
         if (valid) {
-          console.log('this.formObj', this.formObj)
           let newObj = {}
           newObj.customerName = this.formObj.customerName
           newObj.gender = this.formObj.gender
@@ -120,7 +118,6 @@ export default {
           if (this.selectFlag) {
             newObj._id = this.formObj._id
           }
-          console.log('newObj', newObj)
           this.$emit('sumitHandle', newObj, this.addOrEditFlag)
         } else {
           console.log('error submit!!')

@@ -51,7 +51,7 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="/sellList">
-            <i class="el-icon-menu"></i>销售记录列表
+            <i class="el-icon-menu"></i>海鲜销售列表
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
@@ -79,10 +79,8 @@ export default {
   },
   methods: {
     handleOpen (key, keyPath) {
-      console.log(key, keyPath)
     },
     handleClose (key, keyPath) {
-      console.log(key, keyPath)
     }
   }
 }

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Login from '@/pages/User/Login/index.vue'
+import Register from '@/pages/User/Register/index.vue'
 import Layout from '@/pages/Layout/index.vue'
-import projectManager from '@/pages/project_manager/index.vue'
-import projectDetail from '@/pages/project_manager/detail.vue'
 import Home from '@/pages/Main_Page/home.vue'
 import CustomerList from '@/pages/Main_Page/CustomerManager/CustomerList.vue'
 import SeafoodList from '@/pages/Main_Page/RepertoryManager/Seafood/SeafoodList.vue'
@@ -12,11 +12,23 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/login',
+      component: Login
+    },
+    {
+      path: '/register',
+      component: Register
+    },
+    {
       path: '/',
       component: Layout,
       name: '首页',
       meta: { title: '首页' },
       children: [
+        {
+          path: '/',
+          redirect: '/home'
+        },
         {
           path: '/home',
           name: 'Home',
@@ -46,20 +58,6 @@ export default new Router({
           name: 'SellList',
           component: SellList,
           meta: { title: '海鲜销售列表' }
-        },
-        {
-          path: 'projectList',
-          name: 'projectList',
-          component: projectManager,
-          meta: { title: '项目列表', icon: 'table' },
-          props: { cata_id: 1 }
-        },
-        {
-          path: 'detail',
-          name: 'detail',
-          component: projectDetail,
-          meta: { title: '项目详情', icon: 'table' },
-          props: { cata_id: 1 }
         }
       ]
     },

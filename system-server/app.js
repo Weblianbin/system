@@ -15,6 +15,8 @@ var seafood_type = require('./routes/seafood_type')
 var seafood = require('./routes/seafood')
 // 加载客户模块
 var customer = require('./routes/customer')
+// 加载销售模块
+var sell = require('./routes/sell')
 
 var app = express();
 
@@ -47,5 +49,7 @@ app.use('/seafood_type', seafood_type)
 app.use('/seafood', seafood)
 // 使用客户信息路由
 app.use('/customer', customer)
+// 使用销售信息路由
+app.use('/sell', sell)
 
 module.exports = app;
