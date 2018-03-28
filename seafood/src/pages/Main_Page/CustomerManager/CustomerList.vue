@@ -108,6 +108,7 @@ export default {
   created () {
     this.seafoodTypeListAllHandle()
     this.customerListHandle()
+    console.log('this.$store', this.$store)
   },
   methods: {
     pageChange (page) {

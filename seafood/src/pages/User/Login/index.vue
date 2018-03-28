@@ -24,7 +24,6 @@
   </div>
 </template>
 <script>
-import { login } from '@/api/login.js'
 export default {
   data () {
     var checkAccount = (rule, value, callback) => {
@@ -76,10 +75,9 @@ export default {
       this.$router.push('/register')
     },
     async loginHandle (data) {
-      let res = await login({
-        'user': data
-      })
-      console.log('res', res)
+      // 表单验证成功之后,在这里去派发事件
+      var res = await this.$store.dispatch('Login', data)
+      console.log('登录index', res)
       if (res.data.code === '1111') {
         // 登录成功
         this.$message({
