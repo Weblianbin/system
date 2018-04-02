@@ -1,5 +1,5 @@
 <template>
-  <div class='base_background loginBox'>
+  <div class='loginBox'>
     <div class="box">
       <div class="title">
         <div>
@@ -18,8 +18,8 @@
             <el-input class="loginText" type="password" placeholder="请再次输入密码" v-model="registerObj.passwordOnce" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item class="btnBox">
-            <el-button type="primary" @click="submitForm(registerObj)">注册</el-button>
-            <span class="register" @click="goLogin()">已有账号,点击登录</span>
+            <el-button @click="cancle()">取 消</el-button>
+            <el-button type="primary" @click="submitForm(registerObj)">确 定</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -27,7 +27,6 @@
   </div>
 </template>
 <script>
-import { register } from '@/api/register.js'
 export default {
   data () {
     var checkAccount = (rule, value, callback) => {
@@ -54,6 +53,7 @@ export default {
     }
     return {
       labelPosition: 'right',
+      flag: false,
       registerObj: {
         account: '',
         password: '',
@@ -82,57 +82,35 @@ export default {
         if (value) {
           this.register.account = registerObj.account
           this.register.password = registerObj.password
-          this.registerHandle(this.register)
+          this.register._id = JSON.parse(window.localStorage.getItem('userInfo'))._id
+          this.$emit('update', this.register)
         } else {
           this.$message({
-            message: '注册失败,请重新注册',
+            message: '修改失败,请重新输入',
             type: 'error'
           })
-          this.$router.push('/register')
+          let isShow = true
+          this.$emit('update', {}, isShow)
+          // this.$router.push('/register')
         }
       })
     },
-    goLogin () {
-      this.$router.push('/login')
-    },
-    async registerHandle (data) {
-      let res = await register({
-        'user': data
-      })
-      if (res.data.code === '1111') {
-        // 注册成功
-        this.$message({
-          message: res.data.msg,
-          type: 'success'
-        })
-        this.$router.push('/login')
-      } else {
-        // 注册失败
-        this.$message({
-          message: res.data.msg,
-          type: 'error'
-        })
-        this.$router.push('/register')
-      }
+    cancle () {
+      this.$emit('cancle', this.flag)
     }
   }
 }
 </script>
 <style scoped>
 .loginBox{
-  /* padding: 30px */
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
   background-image: url('/static/login/bg-login.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .box{
-  width: 30%;
-  background-color: rgba(0, 0, 0, 0.5);
+  /* width: 30%; */
+  /* background-color: rgba(0, 0, 0, 0.5); */
   padding: 0 15px;
 }
 .box .title{

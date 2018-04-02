@@ -4,11 +4,9 @@ export function transformTimestamp (data) {
   return result.getTime()
 }
 export function transformDate (data) {
-  console.log('data', data)
   let result = null
   result = new Date(data)
   let y = result.getFullYear()
-  console.log('y', y)
   let m = result.getMonth() + 1
   if (m <= 9) {
     m = '0' + m
@@ -18,6 +16,5 @@ export function transformDate (data) {
     d = '0' + d
   }
   result = y + '-' + m + '-' + d
-  console.log('result', result)
   return result
 }

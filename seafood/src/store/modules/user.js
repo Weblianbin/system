@@ -1,5 +1,5 @@
 import { login } from '../../api/auth'
-import { setUserInfo } from '../../utils/auth.js'
+import { setUserInfo, clearUserInfo } from '../../utils/auth.js'
 const user = {
   state: {
     account: '',
@@ -7,10 +7,13 @@ const user = {
   },
   mutations: {
     SET_USER_INFO: (state, userInfo) => {
-      console.log('userInfo', userInfo)
-      state.account = userInfo.account
-      state.user_id = userInfo._id
-      console.log('mutations--', state)
+      if (userInfo) {
+        state.account = userInfo.account
+        state.user_id = userInfo._id
+      } else {
+        state.account = ''
+        state.user_id = ''
+      }
     }
   },
   actions: {
@@ -21,8 +24,6 @@ const user = {
           'user': userInfo
         })
         var data = res.data.dataObj[0]
-        console.log('store中', res)
-        console.log('data', data)
         // 把用户信息存入store
         commit('SET_USER_INFO', data)
         // 把信息存入localStorage中
@@ -33,13 +34,24 @@ const user = {
         return Promise.reject(e)
       }
     },
-    // 获取用户信息
-    async GetInfo ({commit, state}) {
+    // 登出
+    async loginOut ({dispatch, commit}) {
       try {
-        console.log('获取信息')
-      } catch (ex) {
-        console.log('ex', ex)
-        return Promise.reject(ex)
+        await clearUserInfo()
+        commit('SET_USER_INFO', null)
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+    // 获取用户信息
+    async getUserInfo ({dispatch, commit}, data) {
+      try {
+        commit('SET_USER_INFO', data)
+        // 把信息存入localStorage中
+        await clearUserInfo()
+        await setUserInfo(data)
+      } catch (error) {
+        console.log('error', error)
       }
     }
   }

@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 var register = require('./routes/register')
 // 加载登录模块
 var login = require('./routes/login')
+// 用户信息
+var auth = require('./routes/auth')
 // 加载海鲜种类模块
 var seafood_type = require('./routes/seafood_type')
 // 加载海鲜名称模块
@@ -43,6 +45,8 @@ app.all('*', (req, res, next) => {
 app.use('/register', register)
 // 使用登录路由
 app.use('/login', login)
+// 使用管理员模块路由
+app.use('/auth', auth)
 // 使用海鲜种类路由
 app.use('/seafood_type', seafood_type)
 // 使用海鲜名称路由

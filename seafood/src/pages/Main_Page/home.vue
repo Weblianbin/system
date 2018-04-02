@@ -6,7 +6,7 @@
 <script>
 export default {
   created () {
-    console.log('home', this.$store)
+    // console.log('home', this.$store)
   }
 }
 </script>

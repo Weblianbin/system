@@ -14,9 +14,13 @@
               <!-- 海鲜销售管理系统的设计与实现 -->
               <b>海鲜销售管理系统</b>
             </div>
-            <div>
-              用户名
-            </div>
+            <el-menu default-active="" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+              <el-submenu index="1">
+                <template slot="title">欢迎管理员:<span class="account">{{account}}</span></template>
+                <el-menu-item index='1-1' @click='managerDetail'>个人信息</el-menu-item>
+                <el-menu-item index='1-2' @click='loginOutHandle'>退出</el-menu-item>
+              </el-submenu>
+            </el-menu>
           </div>
         </div>
       </el-col>
@@ -25,9 +29,29 @@
 </template>
 <script>
 export default {
+  created () {
+    this.getAccount()
+  },
+  computed: {
+    account () {
+      var result = null
+      if (this.$store.state.user.account) {
+        result = this.$store.state.user.account
+      } else {
+        result = JSON.parse(window.localStorage.getItem('userInfo')).account
+      }
+      return result
+    }
+  },
+  watch: {
+    account (val) {
+      // this.userIcons = val
+    }
+  },
   data () {
     return {
-      showAsideBoolean: false
+      showAsideBoolean: false,
+      activeIndex: '1'
     }
   },
   methods: {
@@ -38,6 +62,19 @@ export default {
         this.showAsideBoolean = true
       }
       this.$emit('showAside', this.showAsideBoolean)
+    },
+    loginOutHandle () {
+      this.$store.dispatch('loginOut')
+      this.$router.push('/login')
+    },
+    // 从本地读取信息
+    getAccount () {
+    },
+    // 个人信息
+    managerDetail () {
+      this.$router.push('/managerDetail')
+    },
+    handleSelect (key, keyPath) {
     }
   }
 }
@@ -64,6 +101,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 60px;
+  line-height: 60px;
   /* padding: 0 0 0 15px; */
 }
 .box{
@@ -74,4 +112,5 @@ export default {
 .title{
   font-size: 20px;
 }
+
 </style>

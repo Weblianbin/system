@@ -28,6 +28,11 @@ export default {
     Header,
     Breadcrumb
   },
+  watch: {
+    $route (val) {
+      console.log('val', val)
+    }
+  },
   data () {
     return {
       showAsideBoolean: false

@@ -59,7 +59,6 @@ export default {
     submitForm (loginObj) {
       this.$refs.loginObj.validate((value) => {
         if (value) {
-          console.log('loginObj', loginObj)
           this.loginHandle(loginObj)
         } else {
           this.$message({
@@ -77,7 +76,6 @@ export default {
     async loginHandle (data) {
       // 表单验证成功之后,在这里去派发事件
       var res = await this.$store.dispatch('Login', data)
-      console.log('登录index', res)
       if (res.data.code === '1111') {
         // 登录成功
         this.$message({
