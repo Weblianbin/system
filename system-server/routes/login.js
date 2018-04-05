@@ -4,10 +4,12 @@ const db = require('../db')
 // 登录
 login.post('/', function (req, res) {
   let reqData = req.body.user
+  console.log(reqData)
   let account = reqData.account
   let password = reqData.password
   db.User.find({ 'account': account }, function (err, data) {
     if (!err) {
+      console.log('data', data)
       if (data.length !== 0) {
         // 说明用户存在
         if (data[0].account === account) {
@@ -26,6 +28,7 @@ login.post('/', function (req, res) {
         }
       } else {
         // 用户不存在
+        console.log('333333')
         res.status(200).json({
           code: '0000',
           msg: '用户不存在,请先注册'

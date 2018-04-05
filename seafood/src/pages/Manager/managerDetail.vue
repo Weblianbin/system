@@ -5,7 +5,7 @@
       <div class="grid-content bg-purple">
         <el-card class="box-card">
         <div slot="header" class="clearfix">
-          <span>管理员信息</span>
+          <span class='title'>管理员信息</span>
           <el-button style="float: right; padding: 3px 0" type="text" @click="changPsw()">修改信息</el-button>
         </div>
         <div class="managerBox">
@@ -17,7 +17,7 @@
       </div>
     </el-col>
   </el-row>
-  <el-dialog title="修改信息" :visible.sync="dialogFormVisible">
+  <el-dialog title="修改信息" center :visible.sync="dialogFormVisible">
     <!-- <div slot="footer" class="dialog-footer">
       <el-button @click="dialogFormVisible = false">取 消</el-button>
       <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
@@ -93,3 +93,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.title{
+  text-align: center;
+}
+</style>

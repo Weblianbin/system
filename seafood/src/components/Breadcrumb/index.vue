@@ -19,13 +19,13 @@ export default {
     $route () {
       let arr = this.$route.matched
       // 路由输出是空的,导致点击无效
-      arr[0].path = '/home'
+      arr[0].path = '/customerList'
       this.routesArr = arr
     }
   },
   mounted () {
     let arr = this.$route.matched
-    arr[0].path = '/home'
+    arr[0].path = '/customerList'
     this.routesArr = arr
   },
   data () {

@@ -23,11 +23,13 @@ const user = {
         var res = await login({
           'user': userInfo
         })
-        var data = res.data.dataObj[0]
-        // 把用户信息存入store
-        commit('SET_USER_INFO', data)
-        // 把信息存入localStorage中
-        await setUserInfo(data)
+        if (res.data.code === '1111') {
+          var data = res.data.dataObj[0]
+          // 把用户信息存入store
+          commit('SET_USER_INFO', data)
+          // 把信息存入localStorage中
+          await setUserInfo(data)
+        }
         return Promise.resolve(res)
       } catch (e) {
         console.log('e', e)

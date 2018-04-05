@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/pages/User/Login/index.vue'
-import Register from '@/pages/User/Register/index.vue'
-import ManagerDetail from '@/pages/User/managerDetail.vue'
+import Login from '@/pages/Manager/Login/index.vue'
+import Register from '@/pages/Manager/Register/index.vue'
+import ManagerDetail from '@/pages/Manager/managerDetail.vue'
 import Layout from '@/pages/Layout/index.vue'
-import Home from '@/pages/Main_Page/home.vue'
+// import Home from '@/pages/Main_Page/home.vue'
 import CustomerList from '@/pages/Main_Page/CustomerManager/CustomerList.vue'
 import SeafoodList from '@/pages/Main_Page/RepertoryManager/Seafood/SeafoodList.vue'
 import SeafoodTypeList from '@/pages/Main_Page/RepertoryManager/SeafoodType/SeafoodTypeList.vue'
@@ -32,14 +32,14 @@ const router = new Router({
       children: [
         {
           path: '/',
-          redirect: '/home'
+          redirect: '/customerList'
         },
-        {
-          path: '/home',
-          name: 'Home',
-          component: Home,
-          meta: { title: 'Home' }
-        },
+        // {
+        //   path: '/home',
+        //   name: 'Home',
+        //   component: Home,
+        //   meta: { title: 'Home' }
+        // },
         {
           path: 'customerList',
           name: 'CustomerList',
@@ -83,7 +83,7 @@ router.beforeEach((to, from, next) => {
   let userInfo = getUserInfo()
   if (userInfo) {
     if (to.path === '/login' || to.path === '/register') {
-      next({ path: '/home' })
+      next({ path: '/customerList' })
     } else {
       // 当准备跳到首页的时候,还会再经过路由守卫,再走一次
       next()

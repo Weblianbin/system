@@ -1,6 +1,6 @@
 <template>
   <el-menu default-active="1-4-1" :router="true" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="showAsideBoolean">
-      <el-submenu index="0">
+      <!-- <el-submenu index="0">
         <template slot="title">
           <i class="fa fa-home faIcon"></i>
           <span slot="title">主页</span>
@@ -11,7 +11,7 @@
             Home
           </el-menu-item>
         </el-menu-item-group>
-      </el-submenu>
+      </el-submenu> -->
       <el-submenu index="1">
         <template slot="title">
           <i class="fa fa-user faIcon"></i>

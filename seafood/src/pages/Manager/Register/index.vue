@@ -123,7 +123,7 @@ export default {
   /* padding: 30px */
   height: 100vh;
   width: 100vw;
-  background-image: url('/static/login/bg-login.jpg');
+  background-image: url('/static/bg-login.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   display: flex;
@@ -132,8 +132,9 @@ export default {
 }
 .box{
   width: 30%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   padding: 0 15px;
+  border: 1px solid lightgrey
 }
 .box .title{
   /* background-color: red; */
@@ -142,7 +143,6 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 20px;
-  color:white
 }
 .btnBox{
   /* display: flex; */

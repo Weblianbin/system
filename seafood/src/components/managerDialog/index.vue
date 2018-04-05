@@ -1,11 +1,11 @@
 <template>
   <div class='loginBox'>
     <div class="box">
-      <div class="title">
+      <!-- <div class="title">
         <div>
           <b>注&nbsp;册</b>
         </div>
-      </div>
+      </div> -->
       <div>
          <el-form :model="registerObj" status-icon :rules="registerRules" ref="registerObj" label-width="100px" class="demo-ruleForm">
           <el-form-item class="loginText" label="用户名" prop="account">

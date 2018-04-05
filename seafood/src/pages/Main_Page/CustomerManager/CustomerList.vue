@@ -171,25 +171,32 @@ export default {
     },
     // 删除事件
     handleDelete (index, row) {
-      this.$alert('是否删除?', '删除项目', {
-        showCancelButton: true,
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        callback: action => {
-          if (action === 'confirm') {
-            this.deleteCustomerHandle(row)
-            this.$message({
-              type: 'success',
-              message: '删除成功'
-            })
-          } else {
-            this.$message({
-              type: 'info',
-              message: '取消'
-            })
+      if (this.$store.getters.account === 'lianbin') {
+        this.$alert('是否删除?', '删除项目', {
+          showCancelButton: true,
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          callback: action => {
+            if (action === 'confirm') {
+              this.deleteCustomerHandle(row)
+              this.$message({
+                type: 'success',
+                message: '删除成功'
+              })
+            } else {
+              this.$message({
+                type: 'info',
+                message: '取消'
+              })
+            }
           }
-        }
-      })
+        })
+      } else {
+        this.$message({
+          type: 'error',
+          message: '您好,您不是超级管理员,不能删除'
+        })
+      }
     },
     // 删除请求
     async deleteCustomerHandle (data) {
