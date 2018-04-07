@@ -12,7 +12,7 @@
           <div class="box">
             <div class="title">
               <!-- 海鲜销售管理系统的设计与实现 -->
-              <b>海鲜销售管理系统</b>
+              <b>海鲜超市信息管理系统的设计与实现</b>
             </div>
             <el-menu default-active="" class="el-menu-demo" mode="horizontal" @select="handleSelect">
               <el-submenu index="1">

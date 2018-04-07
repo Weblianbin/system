@@ -29,7 +29,7 @@
         <el-table-column
           align="center"
           prop="sellTotal"
-          label="销售总量"
+          label="销售总量(单位kg)"
           >
         </el-table-column>
         <el-table-column
@@ -152,8 +152,8 @@ export default {
     },
     // 删除事件
     handleDelete (index, row) {
-      if (this.$store.getters.account === 'lianbin') {
-        this.$alert('是否删除?', '删除项目', {
+      if (JSON.parse(window.localStorage.getItem('userInfo')).account === 'lianbin') {
+        this.$alert('是否删除' + row.seafoodName + '这条销售记录?', '删除', {
           showCancelButton: true,
           confirmButtonText: '确定',
           cancelButtonText: '取消',

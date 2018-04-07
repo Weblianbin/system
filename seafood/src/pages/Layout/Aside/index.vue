@@ -27,7 +27,7 @@
       <el-submenu index="2">
         <template slot="title">
           <i class="fa fa-university faIcon"></i>
-          <span slot="title">海鲜库存管理</span>
+          <span slot="title">海鲜进货管理</span>
         </template>
         <el-submenu index="2-1">
           <template slot="title">海鲜种类</template>
@@ -40,7 +40,7 @@
           <template slot="title">海鲜名称</template>
           <el-menu-item index="/seafoodList">
             <i class="el-icon-menu"></i>
-            海鲜列表
+            海鲜名称列表
           </el-menu-item>
         </el-submenu>
       </el-submenu>

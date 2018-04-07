@@ -11,7 +11,7 @@ login.post('/', function (req, res) {
     if (!err) {
       console.log('data', data)
       if (data.length !== 0) {
-        // 说明用户存在
+        // 说明管理员存在
         if (data[0].account === account) {
           if (data[0].password === password) {
             res.status(200).json({
@@ -27,11 +27,11 @@ login.post('/', function (req, res) {
           }
         }
       } else {
-        // 用户不存在
+        // 管理员不存在
         console.log('333333')
         res.status(200).json({
           code: '0000',
-          msg: '用户不存在,请先注册'
+          msg: '管理员不存在,请先注册'
         })
       }
     }

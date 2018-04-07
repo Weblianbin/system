@@ -50,7 +50,7 @@ const router = new Router({
           path: 'seafoodList',
           name: 'SeafoodList',
           component: SeafoodList,
-          meta: { title: '海鲜列表' }
+          meta: { title: '海鲜名称列表' }
         },
         {
           path: 'seafoodTypeList',

@@ -145,7 +145,7 @@ export default {
       }
       this.formObj = obj
       this.customerAddOrEdit = true
-      this.titleText = '编辑海鲜种类'
+      this.titleText = '编辑客户信息'
     },
     // 编辑请求
     async editCustomerHandle (data) {
@@ -171,8 +171,8 @@ export default {
     },
     // 删除事件
     handleDelete (index, row) {
-      if (this.$store.getters.account === 'lianbin') {
-        this.$alert('是否删除?', '删除项目', {
+      if (JSON.parse(window.localStorage.getItem('userInfo')).account === 'lianbin') {
+        this.$alert('是否删除' + row.customerName + '这条客户信息?', '删除', {
           showCancelButton: true,
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -226,7 +226,7 @@ export default {
       obj.gender = ''
       this.formObj = obj
       this.customerAddOrEdit = true
-      this.titleText = '新增海鲜种类'
+      this.titleText = '新增客户信息'
     },
     // 新增请求
     async addCustomerHandle (data) {

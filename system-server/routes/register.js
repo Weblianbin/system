@@ -27,7 +27,7 @@ register.post('/', function (req, res) {
       } else {
         res.status(200).json({
           code: '0000',
-          msg: '用户已存在'
+          msg: '管理员已存在'
         })
       }
     }

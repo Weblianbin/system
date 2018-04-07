@@ -116,7 +116,7 @@ export default {
       }
       this.formObj = obj
       this.seafoodAddOrEdit = true
-      this.titleText = '编辑海鲜种类'
+      this.titleText = '编辑海鲜名称'
     },
     // 编辑请求
     async editSeafoodHandle (data) {
@@ -142,8 +142,8 @@ export default {
     },
     // 删除事件
     handleDelete (index, row) {
-      if (this.$store.getters.account === 'lianbin') {
-        this.$alert('是否删除?', '删除项目', {
+      if (JSON.parse(window.localStorage.getItem('userInfo')).account === 'lianbin') {
+        this.$alert('是否删除' + row.seafoodName + '这条海鲜名称信息?', {
           showCancelButton: true,
           confirmButtonText: '确定',
           cancelButtonText: '取消',

@@ -96,7 +96,7 @@ router.post('/edit', function (req, res) {
 })
 // 删除
 router.post('/delete', function (req, res) {
-  let reqData = req.body.seafood
+  let reqData = req.body.sell
   let id = reqData._id
   db.Sell.findByIdAndRemove(id, function (err) {
     if (!err) {

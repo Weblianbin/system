@@ -1,7 +1,7 @@
 const exp = require('express')
 const router = exp.Router()
 const db = require('../db')
-// 添加海鲜种类
+// 添加海鲜
 router.post('/add', function (req, res) {
   let reqData = req.body.seafood
   let seafoodName = reqData.seafoodName
@@ -34,7 +34,7 @@ router.post('/add', function (req, res) {
     }
   })
 })
-// 查找所以种类,分页
+// 查找,分页
 router.post('/seafoodList', function (req, res) {
   let reqData = req.body.pageInfo
   var index = reqData.index

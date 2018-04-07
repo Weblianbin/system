@@ -84,7 +84,8 @@ router.post('/edit', function (req, res) {
   db.Customer.find({ 'customerName': customerName }).then(function (data) {
     // 先查下数据库,名称是否相同
     data.forEach((item) => {
-      if (item.customerName == reqData.customerName && item.gender == reqData.gender && item.phoneNumber == reqData.phoneNumber && item.shopTime == reqData.shopTime && item.name == reqData.name && item.seafoodName == reqData.seafoodName && item.amount == reqData.amount) {
+      if (item.customerName == reqData.customerName &&
+        item.gender == reqData.gender && item.phoneNumber == reqData.phoneNumber && item.shopTime == reqData.shopTime && item.name == reqData.name && item.seafoodName == reqData.seafoodName && item.amount == reqData.amount) {
         res.send({
           code: "0000",
           msg: "修改失败,不能与其他相同"

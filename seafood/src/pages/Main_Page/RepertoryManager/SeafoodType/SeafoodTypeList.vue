@@ -127,8 +127,8 @@ export default {
     },
     // 删除事件
     handleDelete (index, row) {
-      if (this.$store.getters.account === 'lianbin') {
-        this.$alert('是否删除?', '删除项目', {
+      if (JSON.parse(window.localStorage.getItem('userInfo')).account === 'lianbin') {
+        this.$alert('是否删除' + row.name + '这条海鲜种类信息?', {
           showCancelButton: true,
           confirmButtonText: '确定',
           cancelButtonText: '取消',
