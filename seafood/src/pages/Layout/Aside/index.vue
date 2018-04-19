@@ -1,17 +1,9 @@
 <template>
   <el-menu default-active="1-4-1" :router="true" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="showAsideBoolean">
-      <!-- <el-submenu index="0">
-        <template slot="title">
-          <i class="fa fa-home faIcon"></i>
-          <span slot="title">主页</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="/home">
-            <i class="el-icon-menu"></i>
-            Home
-          </el-menu-item>
-        </el-menu-item-group>
-      </el-submenu> -->
+      <el-menu-item index="/home">
+        <i class="fa fa-fort-awesome faIcon" aria-hidden="true"></i>
+        前台主界面
+      </el-menu-item>
       <el-submenu index="1">
         <template slot="title">
           <i class="fa fa-user faIcon"></i>
@@ -52,6 +44,28 @@
         <el-menu-item-group>
           <el-menu-item index="/sellList">
             <i class="el-icon-menu"></i>海鲜销售列表
+          </el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="4">
+        <template slot="title">
+          <i class="fa fa-file-word-o faIcon" aria-hidden="true"></i>
+          <span slot="title">精致生活文章管理</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item index="/lifeList">
+            <i class="el-icon-menu"></i>精致生活文章列表
+          </el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="5">
+        <template slot="title">
+          <i class="fa fa-file-word-o faIcon" aria-hidden="true"></i>
+          <span slot="title">海鲜圈文章管理</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item index="/circleList">
+            <i class="el-icon-menu"></i>海鲜圈文章列表
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>

@@ -131,11 +131,76 @@ var sell = new db.Schema({
   }
 })
 var Sell = db.model('Sell', sell)
+// 生活表
+var life = new db.Schema({
+  title: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  content: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  author: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  time: {
+    // 字段的类型
+    type: Number,
+    // 设置默认值
+    default: ''
+  }
+})
+var Life = db.model('Life', life)
+// 生活圈表
+var circle = new db.Schema({
+  title: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  content: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  author: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  time: {
+    // 字段的类型
+    type: Number,
+    // 设置默认值
+    default: ''
+  }
+})
+var Circle = db.model('Circle', circle)
+
+// 图片表
+var imgSrc = new db.Schema({
+  photo: ''
+})
+var ImgSrc = db.model('ImgSrc', imgSrc)
 
 module.exports = {
   User,
   SeafoodType,
   Seafood,
   Customer,
-  Sell
+  Sell,
+  imgSrc,
+  Life,
+  Circle
 }

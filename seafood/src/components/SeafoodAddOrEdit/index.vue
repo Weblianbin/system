@@ -1,11 +1,11 @@
 <template>
   <div class="addBox">
-    <el-form :model="form" status-icon :rules="formRules" ref="form" label-width="80px" size="small" class="demo-ruleForm">
+    <el-form :model="formObj" status-icon :rules="formRules" ref="formObj" label-width="80px" size="small" class="demo-ruleForm">
       <el-form-item label="海鲜种类"  prop="name">
         <!-- 设置,修改的时候,不能修改种类 -->
-        <el-select v-model="form.name" :disabled="selectFlag" placeholder="请选择">
+        <el-select v-model="formObj.name" :disabled="selectFlag" placeholder="请选择">
           <el-option
-            v-for="item in form.seafoodTypes"
+            v-for="item in formObj.seafoodTypes"
             :key="item.name"
             :label="item.name"
             :value="item.name">
@@ -13,10 +13,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="海鲜名称" prop="seafoodName">
-        <el-input type="text" placeholder="请输入海鲜名称" v-model="form.seafoodName"></el-input>
+        <el-input type="text" placeholder="请输入海鲜名称" v-model="formObj.seafoodName"></el-input>
       </el-form-item>
       <el-form-item label="海鲜简介" prop="seafoodInfo">
-        <el-input type="textarea" placeholder="请描述海鲜特征" v-model="form.seafoodInfo"></el-input>
+        <el-input type="textarea" placeholder="请描述海鲜特征" v-model="formObj.seafoodInfo"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="cancleHandle()">取 消</el-button>
@@ -74,7 +74,8 @@ export default {
     },
     sumitHandle () {
       // form
-      this.$refs.form.validate((valid) => {
+      this.$refs.formObj.validate((valid) => {
+        console.log('this.form', this.form)
         if (valid) {
           let newObj = {}
           newObj.name = this.formObj.name
@@ -83,6 +84,7 @@ export default {
           if (this.selectFlag) {
             newObj._id = this.formObj._id
           }
+          console.log('newObj', newObj)
           this.$emit('sumitHandle', newObj, this.addOrEditFlag)
         } else {
           console.log('error submit!!')
@@ -93,3 +95,28 @@ export default {
   }
 }
 </script>
+<style>
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+</style>

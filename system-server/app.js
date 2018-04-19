@@ -19,6 +19,10 @@ var seafood = require('./routes/seafood')
 var customer = require('./routes/customer')
 // 加载销售模块
 var sell = require('./routes/sell')
+var life = require('./routes/life')
+var circle = require('./routes/circle')
+// 加载销售模块
+var imgSrc = require('./routes/imgSrc')
 
 var app = express();
 
@@ -55,5 +59,8 @@ app.use('/seafood', seafood)
 app.use('/customer', customer)
 // 使用销售信息路由
 app.use('/sell', sell)
+app.use('/life', life)
+app.use('/circle', circle)
+app.use('/imgSrc', imgSrc)
 
 module.exports = app;

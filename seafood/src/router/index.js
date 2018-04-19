@@ -4,16 +4,56 @@ import Login from '@/pages/Manager/Login/index.vue'
 import Register from '@/pages/Manager/Register/index.vue'
 import ManagerDetail from '@/pages/Manager/managerDetail.vue'
 import Layout from '@/pages/Layout/index.vue'
-// import Home from '@/pages/Main_Page/home.vue'
+import Home from '@/pages/Main_Page/Home/home.vue'
+import HomeIndex from '@/pages/Main_Page/Home/Main/index.vue'
+import SeafoodType from '@/pages/Main_Page/Home/Main/seafoodType.vue'
+import Seafood from '@/pages/Main_Page/Home/Main/seafood.vue'
+import Life from '@/pages/Main_Page/Home/Main/life.vue'
+import Circle from '@/pages/Main_Page/Home/Main/circle.vue'
+import About from '@/pages/Main_Page/Home/Main/about.vue'
 import CustomerList from '@/pages/Main_Page/CustomerManager/CustomerList.vue'
 import SeafoodList from '@/pages/Main_Page/RepertoryManager/Seafood/SeafoodList.vue'
 import SeafoodTypeList from '@/pages/Main_Page/RepertoryManager/SeafoodType/SeafoodTypeList.vue'
 import SellList from '@/pages/Main_Page/SellManager/SellList.vue'
+import LifeList from '@/pages/Main_Page/LifeManager/LifeList.vue'
+import CircleList from '@/pages/Main_Page/CircleManager/CircleList.vue'
 import { getUserInfo } from '@/utils/auth'
 // console.log(store)
 Vue.use(Router)
 const router = new Router({
   routes: [
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home,
+      meta: { title: 'Home' },
+      children: [
+        {
+          path: '',
+          component: HomeIndex
+        },
+        {
+          path: '/seafoodType',
+          component: SeafoodType
+        },
+        {
+          path: '/seafood',
+          component: Seafood
+        },
+        {
+          path: '/life',
+          component: Life
+        },
+        {
+          path: '/circle',
+          component: Circle
+        },
+        {
+          path: '/about',
+          component: About
+        }
+      ]
+    },
     {
       path: '/login',
       name: 'Login',
@@ -27,19 +67,13 @@ const router = new Router({
     {
       path: '/',
       component: Layout,
-      name: '首页',
-      meta: { title: '首页' },
+      name: '后台主界面',
+      meta: { title: '后台主界面' },
       children: [
         {
           path: '/',
           redirect: '/customerList'
         },
-        // {
-        //   path: '/home',
-        //   name: 'Home',
-        //   component: Home,
-        //   meta: { title: 'Home' }
-        // },
         {
           path: 'customerList',
           name: 'CustomerList',
@@ -63,6 +97,18 @@ const router = new Router({
           name: 'SellList',
           component: SellList,
           meta: { title: '海鲜销售列表' }
+        },
+        {
+          path: 'lifeList',
+          name: 'LifeList',
+          component: LifeList,
+          meta: { title: '精致生活文章列表' }
+        },
+        {
+          path: 'circleList',
+          name: 'CircleList',
+          component: CircleList,
+          meta: { title: '海鲜圈文章列表' }
         },
         {
           path: 'managerDetail',

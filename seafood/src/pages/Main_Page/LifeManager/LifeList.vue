@@ -16,20 +16,26 @@
         </el-table-column>
         <el-table-column
           align="center"
-          prop="name"
-          label="海鲜类型"
+          prop="title"
+          label="文章标题"
           >
         </el-table-column>
         <el-table-column
           align="center"
-          prop="seafoodName"
-          label="海鲜名称"
+          prop="author"
+          label="作者"
           >
         </el-table-column>
         <el-table-column
           align="center"
-          prop="seafoodInfo"
-          label="简介"
+          prop="time"
+          label="日期"
+          >
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="content"
+          label="内容"
           >
         </el-table-column>
         <el-table-column
@@ -48,24 +54,24 @@
       </el-pagination>
     </div>
     <!-- 新增,修改 -->
-    <el-dialog :title="titleText" modal center :visible.sync="seafoodAddOrEdit">
-      <SeafoodAddOrEdit
-        v-if="seafoodAddOrEdit"
+    <el-dialog :title="titleText" modal center :visible.sync="lifeAddOrEdit">
+      <LifeAddOrEdit
+        v-if="lifeAddOrEdit"
         :form='formObj'
         @cancleHandle='cancleHandle'
         @sumitHandle='sumitHandle'
       >
-      </SeafoodAddOrEdit>
+      </LifeAddOrEdit>
     </el-dialog>
   </div>
 </template>
 <script>
-import { seafoodTypeListAll } from '@/api/seafoodType.js'
-import { seafoodList, addSeafood, editSeafood, deleteSeafood } from '@/api/seafood.js'
-import SeafoodAddOrEdit from '@/components/SeafoodAddOrEdit/index.vue'
+import { lifeList, addLife, editLife, deleteLife } from '@/api/life.js'
+import LifeAddOrEdit from '@/components/lifeAddOrEdit/index.vue'
+import { transformDate } from '@/utils/dateTransform.js'
 export default {
   components: {
-    SeafoodAddOrEdit
+    LifeAddOrEdit
   },
   data () {
     return {
@@ -73,37 +79,34 @@ export default {
       pageIndex: 1,
       pageCount: '',
       pageObj: {},
-      seafoodAddOrEdit: false,
+      lifeAddOrEdit: false,
       titleText: '',
-      seafoodTypes: [],
-      formObj: {}
+      formObj: {},
+      seafoodTypes: []
     }
   },
   created () {
-    this.seafoodTypeListAllHandle()
-    this.seafoodListHandle()
+    this.lifeListHandle()
   },
   methods: {
     pageChange (page) {
       this.pageIndex = page
-      this.seafoodListHandle()
+      this.lifeListHandle()
     },
-    // 请求海鲜种类列表,不分页
-    async seafoodTypeListAllHandle () {
-      let res = await seafoodTypeListAll()
-      this.seafoodTypes = res.data.data
-    },
-    // 请求海鲜名称列表
-    async seafoodListHandle () {
+    async lifeListHandle () {
       // 用于清空,避免重复
       let obj = {}
       obj.index = this.pageIndex
       obj.size = 2
       this.pageObj = obj
-      let res = await seafoodList({
+      let res = await lifeList({
         'pageInfo': this.pageObj
       })
-      this.tableData = res.data.data
+      let arr = [...res.data.data]
+      arr.forEach((item) => {
+        item.time = transformDate(item.time)
+      })
+      this.tableData = arr
       this.pageCount = res.data.count
     },
     // 编辑事件
@@ -115,42 +118,41 @@ export default {
         }
       }
       this.formObj = obj
-      console.log(this.formObj)
-      this.seafoodAddOrEdit = true
-      this.titleText = '编辑海鲜名称'
+      this.lifeAddOrEdit = true
+      this.titleText = '编辑'
     },
     // 编辑请求
-    async editSeafoodHandle (data) {
-      let res = await editSeafood({
-        'seafood': data
+    async editLifeHandle (data) {
+      let res = await editLife({
+        'life': data
       })
       if (res.data.code === '1111') {
-        // 海鲜名称,修改成功
+        // 修改成功
         this.$message({
           message: res.data.msg,
           type: 'success'
         })
-        this.seafoodListHandle()
-        this.seafoodAddOrEdit = false
+        this.lifeListHandle()
+        this.lifeAddOrEdit = false
       } else {
-        // 海鲜名称,添加失败
+        // 添加失败
         this.$message({
           message: res.data.msg,
           type: 'error'
         })
-        this.seafoodAddOrEdit = true
+        this.lifeAddOrEdit = true
       }
     },
     // 删除事件
     handleDelete (index, row) {
       if (JSON.parse(window.localStorage.getItem('userInfo')).account === 'lianbin') {
-        this.$alert('是否删除' + row.seafoodName + '这条海鲜名称信息?', {
+        this.$alert('是否删除' + row.title + '这条篇?', '删除', {
           showCancelButton: true,
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           callback: action => {
             if (action === 'confirm') {
-              this.deleteSeafoodHandle(row)
+              this.deleteLifeHandle(row)
               this.$message({
                 type: 'success',
                 message: '删除成功'
@@ -171,9 +173,9 @@ export default {
       }
     },
     // 删除请求
-    async deleteSeafoodHandle (data) {
-      let res = await deleteSeafood({
-        'seafood': data
+    async deleteLifeHandle (data) {
+      let res = await deleteLife({
+        'life': data
       })
       if (res.data.code === '1111') {
         // 删除成功
@@ -181,7 +183,7 @@ export default {
           message: res.data.msg,
           type: 'success'
         })
-        this.seafoodListHandle()
+        this.lifeListHandle()
       } else {
         // 删除失败
         this.$message({
@@ -196,45 +198,42 @@ export default {
       // select 设置初始值
       obj.seafoodTypes = this.seafoodTypes
       this.formObj = obj
-      // this.urlaction = 'http://localhost:3000/seafood/add'
-      this.seafoodAddOrEdit = true
-      this.titleText = '新增海鲜名称'
+      this.lifeAddOrEdit = true
+      this.titleText = '新增'
     },
     // 新增请求
-    async addSeafoodHandle (data) {
-      console.log('data', data)
-      let res = await addSeafood({
-        'seafood': data
+    async addLifeHandle (data) {
+      let res = await addLife({
+        'life': data
       })
-      console.log('res', res)
       if (res.data.code === '1111') {
-        // 海鲜种类,添加成功
+        // 添加成功
         this.$message({
           message: res.data.msg,
           type: 'success'
         })
-        this.seafoodListHandle()
-        this.seafoodAddOrEdit = false
+        this.lifeListHandle()
+        this.lifeAddOrEdit = false
       } else {
-        // 海鲜名称,添加失败
+        // 添加失败
         this.$message({
           message: res.data.msg,
           type: 'error'
         })
-        this.seafoodAddOrEdit = true
+        this.lifeAddOrEdit = true
       }
     },
     // 组件--修改,新增的取消和提交
     cancleHandle () {
-      this.seafoodAddOrEdit = false
+      this.lifeAddOrEdit = false
     },
     sumitHandle (obj, flag) {
-      console.log('obj---', obj)
+      console.log('obj', obj)
       // 判断传入到组件中是否有这个键存在
       if (flag === '修改') {
-        this.editSeafoodHandle(obj)
+        this.editLifeHandle(obj)
       } else {
-        this.addSeafoodHandle(obj)
+        this.addLifeHandle(obj)
       }
     }
   }
