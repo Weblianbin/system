@@ -14,8 +14,17 @@
           </el-form-item>
         </el-col>
       </el-form-item>
+      <el-form-item label="新闻简介" prop="info">
+        <el-input type="textarea" placeholder="请输入新闻简介" v-model="form.info"></el-input>
+      </el-form-item>
       <el-form-item label="内容" prop="seafoodInfo">
         <el-input type="textarea" placeholder="请输入内容" v-model="form.content"></el-input>
+      </el-form-item>
+      <el-form-item label="相关图片" prop="photo">
+          <el-upload list-type="picture-card" :action="locationUrl" :on-change="changeFile">
+              <img v-if="img" :src="img" style="height: 100%;width:100%;">
+              <i v-else class="el-icon-plus"></i>
+          </el-upload>
       </el-form-item>
       <el-form-item>
         <el-button @click="cancleHandle()">取 消</el-button>
@@ -34,7 +43,9 @@ export default {
       default: () => {
         return {}
       }
-    }
+    },
+    locationUrl: '',
+    imgSrc: ''
   },
   data () {
     return {
@@ -52,20 +63,22 @@ export default {
         time: [
           { required: true, message: '日期不能为空', trigger: 'blur' }
         ],
+        info: [
+          { required: true, message: '新闻简介不能为空', trigger: 'blur' }
+        ],
         content: [
           { required: true, message: '内容不能为空', trigger: 'blur' }
         ]
-      }
+      },
+      img: this.imgSrc
     }
   },
   mounted () {
     // 有键表示修改
     // addOrEditFlag: 表示新增/修改
-    if (this.formObj.hasOwnProperty('name')) {
-      console.log('修改')
+    if (this.formObj.hasOwnProperty('title')) {
       this.addOrEditFlag = '修改'
     } else {
-      console.log('新增')
       this.addOrEditFlag = '新增'
     }
   },
@@ -82,7 +95,9 @@ export default {
           newObj.author = this.formObj.author
           newObj.content = this.formObj.content
           newObj.time = transformTimestamp(this.formObj.time)
-          if (this.selectFlag) {
+          newObj.photo = this.formObj.photo
+          newObj.info = this.formObj.info
+          if (this.addOrEditFlag) {
             newObj._id = this.formObj._id
           }
           this.$emit('sumitHandle', newObj, this.addOrEditFlag)
@@ -91,6 +106,15 @@ export default {
           return false
         }
       })
+    },
+    changeFile (file, fileList) {
+      var This = this
+      var reader = new FileReader()
+      reader.readAsDataURL(file.raw)
+      reader.onload = function (e) {
+        // this.result // 这个就是base64编码了
+        This.formObj.photo = this.result
+      }
     }
   }
 }

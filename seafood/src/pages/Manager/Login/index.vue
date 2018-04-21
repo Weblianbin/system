@@ -84,7 +84,6 @@ export default {
         })
         this.$router.push('/')
       } else {
-        console.log('登陆', res)
         // 登录失败
         this.$message({
           message: res.data.msg,

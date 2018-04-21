@@ -32,6 +32,11 @@
           label="简介"
           >
         </el-table-column>
+         <el-table-column prop="photo" label="文章相关图片" width="120">
+            <template slot-scope="scope">
+              <img :src="scope.row.photo" class="img" width="100" height="100"/>
+            </template>
+        </el-table-column>
         <el-table-column
           label="操作"
           align="center"
@@ -52,6 +57,8 @@
       <SeafoodAddOrEdit
         v-if="seafoodAddOrEdit"
         :form='formObj'
+        :imgSrc='imgSrc'
+        :locationUrl='locationUrl'
         @cancleHandle='cancleHandle'
         @sumitHandle='sumitHandle'
       >
@@ -76,7 +83,9 @@ export default {
       seafoodAddOrEdit: false,
       titleText: '',
       seafoodTypes: [],
-      formObj: {}
+      formObj: {},
+      imgSrc: '',
+      locationUrl: 'http://localhost:3000/life/add'
     }
   },
   created () {
@@ -115,7 +124,7 @@ export default {
         }
       }
       this.formObj = obj
-      console.log(this.formObj)
+      this.imgSrc = obj.photo
       this.seafoodAddOrEdit = true
       this.titleText = '编辑海鲜名称'
     },
@@ -132,6 +141,7 @@ export default {
         })
         this.seafoodListHandle()
         this.seafoodAddOrEdit = false
+        this.imgSrc = ''
       } else {
         // 海鲜名称,添加失败
         this.$message({
@@ -139,6 +149,7 @@ export default {
           type: 'error'
         })
         this.seafoodAddOrEdit = true
+        this.imgSrc = ''
       }
     },
     // 删除事件
@@ -202,11 +213,9 @@ export default {
     },
     // 新增请求
     async addSeafoodHandle (data) {
-      console.log('data', data)
       let res = await addSeafood({
         'seafood': data
       })
-      console.log('res', res)
       if (res.data.code === '1111') {
         // 海鲜种类,添加成功
         this.$message({
@@ -229,7 +238,6 @@ export default {
       this.seafoodAddOrEdit = false
     },
     sumitHandle (obj, flag) {
-      console.log('obj---', obj)
       // 判断传入到组件中是否有这个键存在
       if (flag === '修改') {
         this.editSeafoodHandle(obj)

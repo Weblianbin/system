@@ -7,6 +7,9 @@ export function addCircle (data) {
 export function circleList (data) {
   return ajaxPost('/circle/list', data)
 }
+export function allList (data) {
+  return ajaxPost('/circle/allList', data)
+}
 // 修改
 export function editCircle (data) {
   return ajaxPost('/circle/edit', data)

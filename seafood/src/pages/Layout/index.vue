@@ -30,7 +30,6 @@ export default {
   },
   watch: {
     $route (val) {
-      console.log('val', val)
     }
   },
   data () {

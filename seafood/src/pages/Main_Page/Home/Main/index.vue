@@ -1,18 +1,11 @@
 <template>
   <div class="Main">
     <div class="imgBox">
-      <el-carousel>
-        <el-carousel-item v-for="(item,index) in imgArr" :key="index">
-          <img :src="item.src" class="img">
+      <el-carousel :interval="2000" arrow="always" height="500px">
+        <el-carousel-item v-for="(item,index) in imgArr" :key="index" style="text-align: center;">
+          <img :src="item.src" alt="">
         </el-carousel-item>
       </el-carousel>
-    </div>
-    <div class="routesBox">
-      <div class="routes">
-        <div class="resTitle">
-          {{resTitle}}
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -22,17 +15,23 @@ export default {
     return {
       imgArr: [
         {
-          src: require('@/assets/Main/1.jpg')
+          src: require('@/assets/Main/diwangxie.png')
+        },
+        {
+          src: require('@/assets/Main/longxia.png')
+        },
+        {
+          src: require('@/assets/Main/baoyu.png')
+        },
+        {
+          src: require('@/assets/Main/qingxie.png')
+        },
+        {
+          src: require('@/assets/Main/xia.png')
+        },
+        {
+          src: require('@/assets/Main/luyu.png')
         }
-        // {
-        //   src: require('@/assets/Main/2.jpg')
-        // },
-        // {
-        //   src: require('@/assets/Main/3.jpg')
-        // },
-        // {
-        //   src: require('@/assets/Main/4.jpg')
-        // }
       ],
       resTitle: '展示',
       resArr: []
@@ -66,15 +65,10 @@ export default {
   /* height: 300px; */
   width: 100%;
   padding: 15px 0;
-  background-color: red;
+  /* background-color: rgba(245, 245, 245, 0.5); */
 }
 .el-carousel{
-  width: 80%;
   margin: 0 auto;
-  /* background-color: red; */
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
 }
 .el-carousel-item{
   display: flex;
@@ -89,17 +83,5 @@ export default {
 }
 .routesBox{
   width: 100%;
-}
-.routes{
-  width: 80%;
-  margin: 0 auto;
-}
-.resTitle{
-  height: 30px;
-  width: 100%;
-  background-color: pink;
-  font-size: 20px;
-  line-height: 30px;
-  margin: 15px 0;
 }
 </style>

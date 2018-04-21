@@ -70,11 +70,9 @@ export default {
     // 有键表示修改
     // addOrEditFlag: 表示新增/修改
     if (this.formObj.hasOwnProperty('name')) {
-      console.log('修改')
       this.addOrEditFlag = '修改'
       this.selectFlag = true
     } else {
-      console.log('新增')
       this.addOrEditFlag = '新增'
       this.selectFlag = false
     }

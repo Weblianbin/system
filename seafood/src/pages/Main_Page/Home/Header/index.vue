@@ -42,11 +42,11 @@ export default {
           routeSrc: '/home'
         },
         {
-          name: '海鲜种类',
+          name: '海产品种类',
           routeSrc: '/seafoodType'
         },
         {
-          name: '海鲜名称',
+          name: '海产品',
           routeSrc: '/seafood'
         },
         {
@@ -54,7 +54,7 @@ export default {
           routeSrc: '/life'
         },
         {
-          name: '海鲜圈',
+          name: '海鲜资讯',
           routeSrc: '/circle'
         },
         {
@@ -101,7 +101,7 @@ export default {
   display: flex;
   justify-content: space-between;
   height: 60px;
-  background-color: rgba(64, 158, 225, 0.5);
+  background-color: rgba(30, 144, 255, 0.5);
   color: white;
 }
 .title{

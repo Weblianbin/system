@@ -1,6 +1,8 @@
 /* 基础底色 */
 .base_background{
-  background-color: #f5f5f5;
+  /* background-color: rgba(211, 211, 211, 0.5); */
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
 }
 .inputWidth{
   width: 100px !important;
@@ -12,4 +14,7 @@
 }
 .account{
   color: #409EFF;
+}
+.smallTitle{
+  font-size: 18px;
 }

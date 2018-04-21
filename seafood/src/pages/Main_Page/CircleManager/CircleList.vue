@@ -34,9 +34,20 @@
         </el-table-column>
         <el-table-column
           align="center"
+          prop="info"
+          label="新闻简介"
+          >
+        </el-table-column>
+        <el-table-column
+          align="center"
           prop="content"
           label="内容"
           >
+        </el-table-column>
+        <el-table-column prop="photo" label="文章相关图片" width="120">
+            <template slot-scope="scope">
+              <img :src="scope.row.photo" class="img" width="100" height="100" />
+            </template>
         </el-table-column>
         <el-table-column
           label="操作"
@@ -58,6 +69,8 @@
       <CircleAddOrEdit
         v-if="circleAddOrEdit"
         :form='formObj'
+        :imgSrc='imgSrc'
+        :locationUrl='locationUrl'
         @cancleHandle='cancleHandle'
         @sumitHandle='sumitHandle'
       >
@@ -82,7 +95,9 @@ export default {
       circleAddOrEdit: false,
       titleText: '',
       formObj: {},
-      seafoodTypes: []
+      seafoodTypes: [],
+      imgSrc: '',
+      locationUrl: 'http://localhost:3000/circle/add'
     }
   },
   created () {
@@ -118,6 +133,7 @@ export default {
         }
       }
       this.formObj = obj
+      this.imgSrc = this.formObj.photo
       this.circleAddOrEdit = true
       this.titleText = '编辑'
     },
@@ -134,6 +150,7 @@ export default {
         })
         this.circleListHandle()
         this.circleAddOrEdit = false
+        this.imgSrc = ''
       } else {
         // 添加失败
         this.$message({
@@ -141,6 +158,7 @@ export default {
           type: 'error'
         })
         this.circleAddOrEdit = true
+        this.imgSrc = ''
       }
     },
     // 删除事件
@@ -228,7 +246,6 @@ export default {
       this.circleAddOrEdit = false
     },
     sumitHandle (obj, flag) {
-      console.log('obj', obj)
       // 判断传入到组件中是否有这个键存在
       if (flag === '修改') {
         this.editCircleHandle(obj)

@@ -51,7 +51,8 @@ var seafood = new db.Schema({
   // 描述
   seafoodInfo: String,
   // 海鲜种类
-  name: String
+  name: String,
+  photo: ''
 })
 var Seafood = db.model('Seafood', seafood)
 
@@ -156,7 +157,8 @@ var life = new db.Schema({
     type: Number,
     // 设置默认值
     default: ''
-  }
+  },
+  photo:''
 })
 var Life = db.model('Life', life)
 // 生活圈表
@@ -184,7 +186,9 @@ var circle = new db.Schema({
     type: Number,
     // 设置默认值
     default: ''
-  }
+  },
+  photo:'',
+  info: ''
 })
 var Circle = db.model('Circle', circle)
 

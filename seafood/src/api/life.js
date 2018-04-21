@@ -7,6 +7,9 @@ export function addLife (data) {
 export function lifeList (data) {
   return ajaxPost('/life/list', data)
 }
+export function allList (data) {
+  return ajaxPost('/life/allList', data)
+}
 // 修改
 export function editLife (data) {
   return ajaxPost('/life/edit', data)

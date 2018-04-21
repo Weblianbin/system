@@ -2,16 +2,16 @@
   <div class="seafoodTypeBox">
     <div class="seafoodType base_background">
       <div class="title">
-        本海鲜超市拥有的海鲜分类:
+        海产品种类:
       </div>
       <el-row :gutter="24" class="rowBox">
         <el-col :span="8" class="box" v-for="(item,index) in cardArr" :key="index">
-          <el-card class="box-card">
+          <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
               <span>{{item.name}}</span>
               <!-- <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button> -->
             </div>
-            <div class="text item">
+            <div class="text item" style="height: 250px">
               <el-row :gutter="24">
                 <el-col :span="5">
                   简介:
@@ -52,20 +52,25 @@ export default {
 .seafoodTypeBox{
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .seafoodType{
-  width: 80%;
+  width: 1092px;
   /* background-color: red; */
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-left: 17px;
 }
 .title{
   font-size: 16px;
-  padding: 30px 0;
+  padding: 20px;
 }
 .rowBox{
-  padding: 30px;
+  padding: 20px;
 }
 .box{
   margin-bottom: 30px;
+  line-height: 20px;
 }
 </style>

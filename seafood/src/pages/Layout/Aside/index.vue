@@ -1,9 +1,17 @@
 <template>
   <el-menu default-active="1-4-1" :router="true" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="showAsideBoolean">
-      <el-menu-item index="/home">
-        <i class="fa fa-fort-awesome faIcon" aria-hidden="true"></i>
-        前台主界面
-      </el-menu-item>
+      <el-submenu index="0">
+        <template slot="title">
+          <i class="fa fa-fort-awesome faIcon" aria-hidden="true"></i>
+          <span slot="title">前台展示</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item index="/home">
+            <i class="el-icon-menu"></i>
+            前台主界面
+          </el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
       <el-submenu index="1">
         <template slot="title">
           <i class="fa fa-user faIcon"></i>

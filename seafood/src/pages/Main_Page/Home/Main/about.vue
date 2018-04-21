@@ -52,20 +52,25 @@ export default {
 .seafoodTypeBox{
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .seafoodType{
-  width: 80%;
+  width: 1092px;
   /* background-color: red; */
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-left: 17px;
 }
 .title{
   font-size: 16px;
-  padding: 30px 0;
+  padding: 20px 15px;
 }
 .rowBox{
-  padding: 30px;
+  padding: 20px;
 }
 .box{
   margin-bottom: 30px;
+  line-height: 20px;
 }
 </style>

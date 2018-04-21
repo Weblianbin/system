@@ -18,6 +18,12 @@
       <el-form-item label="海鲜简介" prop="seafoodInfo">
         <el-input type="textarea" placeholder="请描述海鲜特征" v-model="formObj.seafoodInfo"></el-input>
       </el-form-item>
+      <el-form-item label="相关图片" prop="photo">
+          <el-upload list-type="picture-card" :action="locationUrl" :on-change="changeFile">
+              <img v-if="img" :src="img" style="height: 100%;width:100%;">
+              <i v-else class="el-icon-plus"></i>
+          </el-upload>
+      </el-form-item>
       <el-form-item>
         <el-button @click="cancleHandle()">取 消</el-button>
         <el-button type="primary" @click="sumitHandle()">确 定</el-button>
@@ -34,7 +40,9 @@ export default {
       default: () => {
         return {}
       }
-    }
+    },
+    imgSrc: '',
+    locationUrl: ''
   },
   data () {
     return {
@@ -53,7 +61,8 @@ export default {
         seafoodInfo: [
           { required: true, message: '海鲜简介不能为空', trigger: 'blur' }
         ]
-      }
+      },
+      img: this.imgSrc
     }
   },
   mounted () {
@@ -61,7 +70,6 @@ export default {
     // addOrEditFlag: 表示新增/修改
     if (this.formObj.hasOwnProperty('name')) {
       this.addOrEditFlag = '修改'
-      this.selectFlag = true
       this.selectFlag = true
     } else {
       this.addOrEditFlag = '新增'
@@ -75,22 +83,31 @@ export default {
     sumitHandle () {
       // form
       this.$refs.formObj.validate((valid) => {
-        console.log('this.form', this.form)
         if (valid) {
           let newObj = {}
           newObj.name = this.formObj.name
           newObj.seafoodName = this.formObj.seafoodName
           newObj.seafoodInfo = this.formObj.seafoodInfo
+          // 只向服务器传最后一张图片
+          newObj.photo = this.formObj.photo
           if (this.selectFlag) {
             newObj._id = this.formObj._id
           }
-          console.log('newObj', newObj)
           this.$emit('sumitHandle', newObj, this.addOrEditFlag)
         } else {
           console.log('error submit!!')
           return false
         }
       })
+    },
+    changeFile (file, fileList) {
+      var This = this
+      var reader = new FileReader()
+      reader.readAsDataURL(file.raw)
+      reader.onload = function (e) {
+        // this.result // 这个就是base64编码了
+        This.formObj.photo = this.result
+      }
     }
   }
 }

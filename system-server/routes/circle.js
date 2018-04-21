@@ -3,35 +3,42 @@ const router = exp.Router()
 const db = require('../db')
 // 添加
 router.post('/add', function (req, res) {
-  let reqData = req.body.circle
-  let title = reqData.title
-  var circle = new db.Circle(reqData)
-  db.Circle.find({ 'title': title }, function (err, data) {
-    if (!err) {
-      if (data.length === 0) {
-        circle.save(function (err) {
-          if (!err) {
-            // 添加成功
-            res.status(200).json({
-              code: '1111',
-              msg: '添加成功'
-            })
-          } else {
-            // 添加失败
-            res.status(200).json({
-              code: '0000',
-              msg: '添加失败'
-            })
-          }
-        })
-      } else {
-        res.status(200).json({
-          code: '0000',
-          msg: '已经存在'
-        })
+  if (req.body.hasOwnProperty('circle')) {
+    let reqData = req.body.circle
+    let title = reqData.title
+    var circle = new db.Circle(reqData)
+    db.Circle.find({ 'title': title }, function (err, data) {
+      if (!err) {
+        if (data.length === 0) {
+          circle.save(function (err) {
+            if (!err) {
+              // 添加成功
+              res.status(200).json({
+                code: '1111',
+                msg: '添加成功'
+              })
+            } else {
+              // 添加失败
+              res.status(200).json({
+                code: '0000',
+                msg: '添加失败'
+              })
+            }
+          })
+        } else {
+          res.status(200).json({
+            code: '0000',
+            msg: '已经存在'
+          })
+        }
       }
-    }
-  })
+    })
+  } else {
+    res.status(200).json({
+      code: '1111',
+      msg: '图片处理接口'
+    })
+  }
 })
 // 查找所以种类,分页
 router.post('/list', function (req, res) {
@@ -65,28 +72,13 @@ router.post('/list', function (req, res) {
 router.post('/edit', function (req, res) {
   let reqData = req.body.circle
   let id = reqData._id
-  let title = reqData.title
-  let time = reqData.time
-  db.Circle.find({ 'title': title }).then(function (data) {
-    data.forEach((item) => {
-      if (item.title == reqData.title && item.time == reqData.time && item.content == reqData.content && item.author == reqData.author) {
-        res.send({
-          code: "0000",
-          msg: "修改失败"
-        })
-      }
-    })
-    // 再存数据
-    db.Circle.findByIdAndUpdate(id, reqData, function (err) {
-      if (!err) {
-        res.send({
-          code: "1111",
-          msg: "修改成功"
-        })
-      }
-    })
-  }).catch(function (err) {
-    console.log(err)
+  db.Circle.findByIdAndUpdate(id, reqData, function (err) {
+    if (!err) {
+      res.send({
+        code: "1111",
+        msg: "修改成功"
+      })
+    }
   })
 })
 // 删除

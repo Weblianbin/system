@@ -3,37 +3,43 @@ const router = exp.Router()
 const db = require('../db')
 // 添加海鲜
 router.post('/add', function (req, res) {
-  let reqData = req.body.seafood
-  console.log('reqData', reqData)
-  let seafoodName = reqData.seafoodName
-  let name = reqData.name
-  var seafood = new db.Seafood(reqData)
-  db.Seafood.find({ 'seafoodName': seafoodName, 'name': name }, function (err, data) {
-    if (!err) {
-      if (data.length === 0) {
-        seafood.save(function (err) {
-          if (!err) {
-            // 添加成功
-            res.status(200).json({
-              code: '1111',
-              msg: '海鲜名称,添加成功'
-            })
-          } else {
-            // 添加失败
-            res.status(200).json({
-              code: '0000',
-              msg: '海鲜名称,添加失败'
-            })
-          }
-        })
-      } else {
-        res.status(200).json({
-          code: '0000',
-          msg: '海鲜名称已存在'
-        })
+  if (req.body.hasOwnProperty('seafood')) {
+    let reqData = req.body.seafood
+    let seafoodName = reqData.seafoodName
+    let name = reqData.name
+    var seafood = new db.Seafood(reqData)
+    db.Seafood.find({ 'seafoodName': seafoodName, 'name': name }, function (err, data) {
+      if (!err) {
+        if (data.length === 0) {
+          seafood.save(function (err) {
+            if (!err) {
+              // 添加成功
+              res.status(200).json({
+                code: '1111',
+                msg: '海鲜名称,添加成功'
+              })
+            } else {
+              // 添加失败
+              res.status(200).json({
+                code: '0000',
+                msg: '海鲜名称,添加失败'
+              })
+            }
+          })
+        } else {
+          res.status(200).json({
+            code: '0000',
+            msg: '海鲜名称已存在'
+          })
+        }
       }
-    }
-  })
+    })
+  } else {
+    res.status(200).json({
+      code: '1111',
+      msg: '图片处理接口'
+    })
+  }
 })
 // 查找,分页
 router.post('/seafoodList', function (req, res) {
