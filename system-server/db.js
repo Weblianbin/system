@@ -36,6 +36,23 @@ var userSchema = new db.Schema({
   }
 })
 var User = db.model('User', userSchema)
+// 用户
+var userUSchema = new db.Schema({
+  account: {
+    // 字段的类型
+    type: String,
+    // 设置默认值
+    default: ''
+  },
+  phone: '',
+  radio: '',
+  email: '',
+  password: {
+    type: String,
+    default: ''
+  }
+})
+var UserU = db.model('UserU', userUSchema)
 
 // 海鲜种类表
 var seafood_type = new db.Schema({
@@ -52,7 +69,10 @@ var seafood = new db.Schema({
   seafoodInfo: String,
   // 海鲜种类
   name: String,
-  photo: ''
+  photo: '',
+  sale: '',
+  source: '',
+  time: ''
 })
 var Seafood = db.model('Seafood', seafood)
 
@@ -197,14 +217,24 @@ var imgSrc = new db.Schema({
   photo: ''
 })
 var ImgSrc = db.model('ImgSrc', imgSrc)
+// 留言表
+var liuYan = new db.Schema({
+  name: '',
+  email: '',
+  phone: '',
+  info: ''
+})
+var LiuYan = db.model('LiuYan', liuYan)
 
 module.exports = {
   User,
+  UserU,
   SeafoodType,
   Seafood,
   Customer,
   Sell,
   imgSrc,
   Life,
-  Circle
+  Circle,
+  LiuYan
 }

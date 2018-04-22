@@ -6,7 +6,7 @@
           <span slot="title">前台展示</span>
         </template>
         <el-menu-item-group>
-          <el-menu-item index="/home">
+          <el-menu-item index="" @click="goSeafood">
             <i class="el-icon-menu"></i>
             前台主界面
           </el-menu-item>
@@ -103,6 +103,9 @@ export default {
     handleOpen (key, keyPath) {
     },
     handleClose (key, keyPath) {
+    },
+    goSeafood () {
+      this.$router.push({path: '/home', query: {show: 1}})
     }
   }
 }

@@ -1,14 +1,19 @@
 <template>
   <div class="seafoodTypeBox">
-    <div class="seafoodType base_background">
-      <div class="title">
+    <div class="seafoodType">
+      <!-- <div class="title">
         海鲜做法大全:
-      </div>
+      </div> -->
+      <el-form>
+        <el-form-item label="" label-width="0px">
+          <el-input  style="width:300px;margin: 0 auto" size="large" placeholder="请输人查询内容..." v-model="search" suffix-icon="el-icon-search"></el-input>
+        </el-form-item>
+      </el-form>
       <el-row :gutter="24" class="rowBox">
-        <el-col :span="24" class="box" v-for="(item,index) in cardArr" :key="index">
+        <el-col :span="24" class="box" v-for="(item,index) in tableData1" :key="index">
           <el-row :gutter="24" style="padding:12px 0">
             <el-col :span="5" class="smallTitle">
-              {{item.title}}
+              菜名:&nbsp;&nbsp;{{item.title}}
             </el-col>
           </el-row>
           <el-row :gutter="24">
@@ -22,15 +27,15 @@
           </el-row>
         </el-col>
       </el-row>
-      <div class="footer">
+      <!-- <div class="footer">
         <el-pagination layout="prev, pager, next,jumper" :current-page="pageIndex" :page-count="pageCount || 1" @current-change="pageChange">
         </el-pagination>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 <script>
-import { lifeList } from '@/api/life.js'
+import { allList } from '@/api/life.js'
 export default {
   created () {
     this.lifeListHandle()
@@ -39,7 +44,26 @@ export default {
     return {
       cardArr: [],
       pageIndex: 1,
-      pageCount: ''
+      pageCount: '',
+      search: ''
+    }
+  },
+  computed: {
+    tableData1 () {
+      var arr = this.cardArr
+      var search = this.search
+      if (!search) {
+        return arr
+      }
+      search = search.trim().toLowerCase()
+      arr = arr.filter(function (item) {
+        if (item.title.toLowerCase().indexOf(search) !== -1) {
+          return item
+        }
+      })
+      // this.pageCount = Math.ceil(arr.length / 1)
+      console.log('arr', arr)
+      return arr
     }
   },
   methods: {
@@ -54,15 +78,13 @@ export default {
     },
     async lifeListHandle () {
       // 用于清空,避免重复
-      let obj = {}
-      obj.index = this.pageIndex
-      obj.size = 1
-      this.pageObj = obj
-      let res = await lifeList({
-        'pageInfo': this.pageObj
-      })
+      // let obj = {}
+      // obj.index = this.pageIndex
+      // obj.size = 1
+      // this.pageObj = obj
+      let res = await allList()
       this.cardArr = res.data.data
-      this.pageCount = res.data.count
+      // this.pageCount = res.data.count
     }
   }
 }
@@ -94,6 +116,7 @@ export default {
   padding-bottom: 15px;
   line-height: 20px;
   border-bottom: 1px solid white;
+  border: 1px solid lightgray;
 }
 .content{
   line-height: 22px;
@@ -103,5 +126,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.el-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
 }
 </style>

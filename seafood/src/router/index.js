@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/pages/Manager/Login/index.vue'
 import Register from '@/pages/Manager/Register/index.vue'
+import UserLogin from '@/pages/Main_Page/Home/User/login.vue'
+import UserRegister from '@/pages/Main_Page/Home/User/register.vue'
 import ManagerDetail from '@/pages/Manager/managerDetail.vue'
 import Layout from '@/pages/Layout/index.vue'
 import Home from '@/pages/Main_Page/Home/home.vue'
@@ -17,7 +19,7 @@ import SeafoodTypeList from '@/pages/Main_Page/RepertoryManager/SeafoodType/Seaf
 import SellList from '@/pages/Main_Page/SellManager/SellList.vue'
 import LifeList from '@/pages/Main_Page/LifeManager/LifeList.vue'
 import CircleList from '@/pages/Main_Page/CircleManager/CircleList.vue'
-import { getUserInfo } from '@/utils/auth'
+// import { getUserInfo } from '@/utils/auth'
 // console.log(store)
 Vue.use(Router)
 const router = new Router({
@@ -65,6 +67,16 @@ const router = new Router({
       component: Register
     },
     {
+      path: '/userLogin',
+      name: 'userLogin',
+      component: UserLogin
+    },
+    {
+      path: '/userRegister',
+      name: 'userRegister',
+      component: UserRegister
+    },
+    {
       path: '/',
       component: Layout,
       name: '后台主界面',
@@ -72,7 +84,7 @@ const router = new Router({
       children: [
         {
           path: '/',
-          redirect: '/customerList'
+          redirect: '/home'
         },
         {
           path: 'customerList',
@@ -123,25 +135,25 @@ const router = new Router({
 })
 // 路由守卫
 // 当登陆时,把用户信息存入本地,登出时,移除
-const whiteList = ['/login', '/register']// no redirect whitelist
-router.beforeEach((to, from, next) => {
-  // 有token的情况直接已登录状态
-  let userInfo = getUserInfo()
-  if (userInfo) {
-    if (to.path === '/login' || to.path === '/register') {
-      next({ path: '/customerList' })
-    } else {
-      // 当准备跳到首页的时候,还会再经过路由守卫,再走一次
-      next()
-    }
-  } else {
-    // 没有重定向到登录页
-    if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
-      console.log('next')
-      next()
-    } else {
-      next('/login') // 否则全部重定向到登录页
-    }
-  }
-})
+// const whiteList = ['/login', '/register']// no redirect whitelist
+// router.beforeEach((to, from, next) => {
+//   // 有token的情况直接已登录状态
+//   let userInfo = getUserInfo()
+//   if (userInfo) {
+//     if (to.path === '/login' || to.path === '/register') {
+//       next({ path: '/customerList' })
+//     } else {
+//       // 当准备跳到首页的时候,还会再经过路由守卫,再走一次
+//       next()
+//     }
+//   } else {
+//     // 没有重定向到登录页
+//     if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
+//       console.log('next')
+//       next()
+//     } else {
+//       next('/login') // 否则全部重定向到登录页
+//     }
+//   }
+// })
 export default router

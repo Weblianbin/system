@@ -3,7 +3,7 @@
     <div class="box">
       <div class="title">
         <div>
-          <b>管&nbsp;理&nbsp;员&nbsp;登&nbsp;录</b>
+          <b>用&nbsp;户&nbsp;登&nbsp;录</b>
         </div>
       </div>
       <div>
@@ -16,7 +16,7 @@
           </el-form-item>
           <el-form-item class="btnBox">
             <el-button type="primary" @click="submitForm(loginObj)">登录</el-button>
-            <!-- <span class="register" @click="goRegister()">还没有账号,点击注册</span> -->
+            <span class="register" @click="goRegister()">还没有账号,点击注册</span>
           </el-form-item>
         </el-form>
       </div>
@@ -65,31 +65,31 @@ export default {
             message: '用户名或密码不能为空',
             type: 'error'
           })
-          this.$router.push('/login')
+          this.$router.push('/userLogin')
           return false
         }
       })
     },
     goRegister () {
-      this.$router.push('/register')
+      this.$router.push('/userRegister')
     },
     async loginHandle (data) {
       // 表单验证成功之后,在这里去派发事件
-      var res = await this.$store.dispatch('Login', data)
+      var res = await this.$store.dispatch('userLogin', data)
       if (res.data.code === '1111') {
         // 登录成功
         this.$message({
           message: res.data.msg,
           type: 'success'
         })
-        this.$router.push('/customerList')
+        this.$router.push({path: '/home', query: {show: 1}})
       } else {
         // 登录失败
         this.$message({
           message: res.data.msg,
           type: 'error'
         })
-        this.$router.push('/login')
+        this.$router.push('/userLogin')
       }
     }
   }

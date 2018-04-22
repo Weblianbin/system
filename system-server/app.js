@@ -7,8 +7,10 @@ var bodyParser = require('body-parser');
 
 // 加载注册模块
 var register = require('./routes/register')
+var userRegister = require('./routes/userRegister')
 // 加载登录模块
 var login = require('./routes/login')
+var userLogin = require('./routes/userLogin')
 // 用户信息
 var auth = require('./routes/auth')
 // 加载海鲜种类模块
@@ -23,6 +25,7 @@ var life = require('./routes/life')
 var circle = require('./routes/circle')
 // 加载销售模块
 var imgSrc = require('./routes/imgSrc')
+var message = require('./routes/userMessage')
 
 var app = express();
 
@@ -47,8 +50,10 @@ app.all('*', (req, res, next) => {
 })
 // 使用注册路由
 app.use('/register', register)
+app.use('/userRegister', userRegister)
 // 使用登录路由
 app.use('/login', login)
+app.use('/userLogin', userLogin)
 // 使用管理员模块路由
 app.use('/auth', auth)
 // 使用海鲜种类路由
@@ -62,5 +67,6 @@ app.use('/sell', sell)
 app.use('/life', life)
 app.use('/circle', circle)
 app.use('/imgSrc', imgSrc)
+app.use('/message', message)
 
 module.exports = app;

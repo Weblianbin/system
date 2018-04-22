@@ -3,13 +3,23 @@
     <div class="box">
       <div class="title">
         <div>
-          <b>管&nbsp;理&nbsp;员&nbsp;注&nbsp;册</b>
+          <b>用&nbsp;户&nbsp;注&nbsp;册</b>
         </div>
       </div>
       <div>
          <el-form :model="registerObj" status-icon :rules="registerRules" ref="registerObj" label-width="100px" class="demo-ruleForm">
           <el-form-item class="loginText" label="用户名" prop="account">
             <el-input type="text" placeholder="请输入用户名" v-model="registerObj.account" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item class="loginText" label="手机号" prop="phone">
+            <el-input type="text" placeholder="请输入手机号" v-model="registerObj.phone" auto-complete="off"></el-input>
+          </el-form-item>
+          <el-form-item class="loginText" label="性别" prop="radio">
+            <el-radio v-model="registerObj.radio" label="男">男</el-radio>
+            <el-radio v-model="registerObj.radio" label="女">女</el-radio>
+          </el-form-item>
+          <el-form-item class="loginText" label="邮箱" prop="email">
+            <el-input type="text" placeholder="请输入邮箱" v-model="registerObj.email" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input class="loginText" type="password" placeholder="请输入密码" v-model="registerObj.password" auto-complete="off"></el-input>
@@ -27,7 +37,7 @@
   </div>
 </template>
 <script>
-import { register } from '@/api/register.js'
+import { userRegister } from '@/api/register.js'
 export default {
   data () {
     var checkAccount = (rule, value, callback) => {
@@ -39,6 +49,20 @@ export default {
     var checkPassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
+      } else {
+        callback()
+      }
+    }
+    var checkEmail = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入邮箱'))
+      } else {
+        callback()
+      }
+    }
+    var checkPhone = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入手机号'))
       } else {
         callback()
       }
@@ -57,11 +81,17 @@ export default {
       registerObj: {
         account: '',
         password: '',
-        passwordOnce: ''
+        passwordOnce: '',
+        radio: '男',
+        email: '',
+        phone: ''
       },
       register: {
         account: null,
-        password: null
+        password: null,
+        radio: null,
+        email: null,
+        phone: null
       },
       registerRules: {
         account: [
@@ -69,6 +99,12 @@ export default {
         ],
         password: [
           { validator: checkPassword, trigger: 'blur' }
+        ],
+        email: [
+          { validator: checkEmail, trigger: 'blur' }
+        ],
+        phone: [
+          { validator: checkPhone, trigger: 'blur' }
         ],
         passwordOnce: [
           { validator: checkPasswordOnce, trigger: 'blur' }
@@ -82,21 +118,24 @@ export default {
         if (value) {
           this.register.account = registerObj.account
           this.register.password = registerObj.password
+          this.register.radio = registerObj.radio
+          this.register.email = registerObj.email
+          this.register.phone = registerObj.phone
           this.registerHandle(this.register)
         } else {
           this.$message({
             message: '注册失败,请重新注册',
             type: 'error'
           })
-          this.$router.push('/register')
+          this.$router.push('/userRegister')
         }
       })
     },
     goLogin () {
-      this.$router.push('/login')
+      this.$router.push('/userLogin')
     },
     async registerHandle (data) {
-      let res = await register({
+      let res = await userRegister({
         'user': data
       })
       if (res.data.code === '1111') {
@@ -105,14 +144,14 @@ export default {
           message: res.data.msg,
           type: 'success'
         })
-        this.$router.push('/login')
+        this.$router.push('/userLogin')
       } else {
         // 注册失败
         this.$message({
           message: res.data.msg,
           type: 'error'
         })
-        this.$router.push('/register')
+        this.$router.push('/userRegister')
       }
     }
   }

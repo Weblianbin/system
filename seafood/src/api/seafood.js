@@ -7,6 +7,9 @@ export function addSeafood (data) {
 export function seafoodList (data) {
   return ajaxPost('/seafood/seafoodList', data)
 }
+export function list (data) {
+  return ajaxPost('/seafood/list', data)
+}
 // 修改
 export function editSeafood (data) {
   return ajaxPost('/seafood/edit', data)

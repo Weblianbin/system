@@ -15,6 +15,19 @@
       <el-form-item label="海鲜名称" prop="seafoodName">
         <el-input type="text" placeholder="请输入海鲜名称" v-model="formObj.seafoodName"></el-input>
       </el-form-item>
+      <el-form-item label="海鲜价格" prop="sale">
+        <el-input type="text" placeholder="请输入价格" v-model="formObj.sale"></el-input>
+      </el-form-item>
+      <el-form-item label="海鲜产地" prop="source">
+        <el-input type="text" placeholder="请输入海鲜名称" v-model="formObj.source"></el-input>
+      </el-form-item>
+      <el-form-item label="日期" required>
+        <el-col :span="20">
+          <el-form-item prop="time">
+            <el-date-picker type="date" placeholder="选择日期" v-model="form.time" style="width: 100%;"></el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-form-item>
       <el-form-item label="海鲜简介" prop="seafoodInfo">
         <el-input type="textarea" placeholder="请描述海鲜特征" v-model="formObj.seafoodInfo"></el-input>
       </el-form-item>
@@ -33,6 +46,7 @@
 </template>
 
 <script>
+import { transformTimestamp } from '@/utils/dateTransform.js'
 export default {
   props: {
     form: {
@@ -87,6 +101,9 @@ export default {
           let newObj = {}
           newObj.name = this.formObj.name
           newObj.seafoodName = this.formObj.seafoodName
+          newObj.sale = this.formObj.sale
+          newObj.source = this.formObj.source
+          newObj.time = transformTimestamp(this.formObj.time)
           newObj.seafoodInfo = this.formObj.seafoodInfo
           // 只向服务器传最后一张图片
           newObj.photo = this.formObj.photo

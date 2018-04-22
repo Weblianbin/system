@@ -69,34 +69,29 @@ router.post('/seafoodList', function (req, res) {
     console.log(err)
   })
 })
+// 不分页
+router.post('/list', function (req, res) {
+  db.Seafood.find().then(function (data) {
+    let resultData = data.reverse()
+    res.send({
+      code: 'success',
+      data: resultData
+    })
+  }).catch(function (err) {
+    console.log(err)
+  })
+})
 // 修改
 router.post('/edit', function (req, res) {
   let reqData = req.body.seafood
   let id = reqData._id
-  let seafoodName = reqData.seafoodName
-  let name = reqData.name
-  // 根据类别,查出所有海鲜名称
-  db.Seafood.find({ 'name': name }).then(function (data) {
-    // 先查下数据库,名称是否相同
-    data.forEach((item) => {
-      if (item.seafoodName == reqData.seafoodName && item.seafoodInfo == reqData.seafoodInfo) {
-        res.send({
-          code: "0000",
-          msg: "修改失败,海鲜的名称和简介不能与其他相同"
-        })
-      }
-    })
-    // 再存数据
-    db.Seafood.findByIdAndUpdate(id, reqData, function (err) {
-      if (!err) {
-        res.send({
-          code: "1111",
-          msg: "修改成功"
-        })
-      }
-    })
-  }).catch(function (err) {
-    console.log(err)
+  db.Seafood.findByIdAndUpdate(id, reqData, function (err) {
+    if (!err) {
+      res.send({
+        code: "1111",
+        msg: "修改成功"
+      })
+    }
   })
 })
 // 删除

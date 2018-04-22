@@ -1,21 +1,30 @@
 <template>
   <div class="Main">
     <div class="imgBox">
-      <el-carousel :interval="2000" arrow="always" height="500px">
+      <el-carousel :interval="2000" arrow="always" height="600px">
         <el-carousel-item v-for="(item,index) in imgArr" :key="index" style="text-align: center;">
-          <img :src="item.src" alt="">
+          <img :src="item.src" alt="" style="width:100%;height:100%;">
         </el-carousel-item>
       </el-carousel>
+    </div>
+    <div class="mainBox">
+      <div class="main">
+        <SeafoodType></SeafoodType>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import SeafoodType from '@/pages/Main_Page/Home/Main/seafoodType'
 export default {
+  components: {
+    SeafoodType
+  },
   data () {
     return {
       imgArr: [
         {
-          src: require('@/assets/Main/diwangxie.png')
+          src: require('@/assets/Main/1.jpg')
         },
         {
           src: require('@/assets/Main/longxia.png')
@@ -64,7 +73,7 @@ export default {
 .imgBox{
   /* height: 300px; */
   width: 100%;
-  padding: 15px 0;
+  /* padding: 15px 0; */
   /* background-color: rgba(245, 245, 245, 0.5); */
 }
 .el-carousel{
@@ -83,5 +92,15 @@ export default {
 }
 .routesBox{
   width: 100%;
+}
+.mainBox{
+  width: 100%;
+  height: 100%;
+}
+.main{
+  width: 80%;
+  /* background-color: red; */
+  margin: 0 auto;
+  /* padding: 30px 0; */
 }
 </style>

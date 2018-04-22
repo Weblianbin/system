@@ -15,7 +15,7 @@
       </el-form-item>
       <el-form-item label="购买日期" required>
         <el-col :span="20">
-          <el-form-item prop="shopTime">
+          <el-form-item prop="time">
             <el-date-picker type="date" placeholder="选择日期" v-model="form.shopTime" style="width: 100%;"></el-date-picker>
           </el-form-item>
         </el-col>
