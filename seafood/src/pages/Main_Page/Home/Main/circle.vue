@@ -18,12 +18,12 @@
               </el-col>
             </el-row>
             <el-row :gutter="24">
-              <el-col :span="5">
+              <el-col :span="8">
                 <img :src="item.photo" alt="" style="width:100%;height:100%;">
               </el-col>
-              <el-col :span="19">
+              <el-col :span="16">
                 <div class="content ">
-                  {{item.info}}
+                  {{strTextSliceHandle(item.info)}}
                 </div>
               </el-col>
             </el-row>
@@ -50,6 +50,7 @@
 <script>
 import { allList } from '@/api/circle.js'
 import newsDetail from './newsDetail'
+import { strTextSlice } from '@/utils/arrOrStr.js'
 export default {
   components: {
     newsDetail
@@ -87,6 +88,9 @@ export default {
     }
   },
   methods: {
+    strTextSliceHandle (str) {
+      return strTextSlice(str)
+    },
     pageChange (page) {
       this.pageIndex = page
       this.circleListHandle()

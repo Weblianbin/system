@@ -13,6 +13,7 @@ import Seafood from '@/pages/Main_Page/Home/Main/seafood.vue'
 import Life from '@/pages/Main_Page/Home/Main/life.vue'
 import Circle from '@/pages/Main_Page/Home/Main/circle.vue'
 import About from '@/pages/Main_Page/Home/Main/about.vue'
+import UserDetail from '@/pages/Main_Page/Home/Main/userDetail.vue'
 import CustomerList from '@/pages/Main_Page/CustomerManager/CustomerList.vue'
 import SeafoodList from '@/pages/Main_Page/RepertoryManager/Seafood/SeafoodList.vue'
 import SeafoodTypeList from '@/pages/Main_Page/RepertoryManager/SeafoodType/SeafoodTypeList.vue'
@@ -55,6 +56,10 @@ const router = new Router({
           component: About
         }
       ]
+    },
+    {
+      path: '/userDetail',
+      component: UserDetail
     },
     {
       path: '/login',

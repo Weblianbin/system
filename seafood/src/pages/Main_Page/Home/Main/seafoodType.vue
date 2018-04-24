@@ -2,7 +2,7 @@
   <div class="seafoodTypeBox">
     <div class="seafoodType ">
       <div class="title">
-        常见海鲜种类:
+        <div class="name">常见海鲜种类:</div>
       </div>
       <el-row :gutter="24" class="rowBox">
         <el-col :span="8" class="box" v-for="(item,index) in cardArr" :key="index">
@@ -66,11 +66,16 @@ export default {
   font-size: 20px;
   margin-top: 20px;
   text-align: center;
-  border-radius: 50%;
-  background-color: #409EFF;
   color: white;
   height: 50px;
   line-height: 50px;
+}
+.title .name{
+  width: 30%;
+  border-radius: 50%;
+  height: 50px;
+  background-color: #409EFF;
+  margin: 0 auto;
 }
 .rowBox{
   padding: 20px;

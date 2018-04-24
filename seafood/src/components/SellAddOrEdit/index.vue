@@ -18,10 +18,10 @@
       <el-form-item label="销售总量" prop="sellTotal">
         <el-input type="text" placeholder="请输入销售总量" v-model="form.sellTotal"></el-input>
       </el-form-item>
-      <el-form-item label="日期" required>
+      <el-form-item label="时间" required>
         <el-col :span="20">
           <el-form-item prop="time">
-            <el-date-picker type="date" placeholder="选择日期" v-model="form.time" style="width: 100%;"></el-date-picker>
+            <el-date-picker  type="month" placeholder="选择月份" v-model="form.time" style="width: 100%;"></el-date-picker>
           </el-form-item>
         </el-col>
       </el-form-item>

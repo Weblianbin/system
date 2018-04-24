@@ -10,15 +10,18 @@
     <div class="mainBox">
       <div class="main">
         <SeafoodType></SeafoodType>
+        <Sell></Sell>
       </div>
     </div>
   </div>
 </template>
 <script>
 import SeafoodType from '@/pages/Main_Page/Home/Main/seafoodType'
+import Sell from '@/pages/Main_Page/Home/Main/sell'
 export default {
   components: {
-    SeafoodType
+    SeafoodType,
+    Sell
   },
   data () {
     return {

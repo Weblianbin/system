@@ -7,6 +7,9 @@ export function addSell (data) {
 export function sellList (data) {
   return ajaxPost('/sell/list', data)
 }
+export function sellAllList (data) {
+  return ajaxPost('/sell/allList', data)
+}
 // 修改
 export function editSell (data) {
   return ajaxPost('/sell/edit', data)

@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="newsDetailBox">
     <div ref="newsDatailShow" v-html="content" class="content newsDatailShow">
     </div>
   </div>
@@ -20,7 +20,7 @@ export default {
 }
 </script>
 <style scoped>
-.box{
+.newsDetailBox{
   width: 100%;
 }
 .newsDatailShow{

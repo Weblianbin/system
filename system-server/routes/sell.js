@@ -63,6 +63,17 @@ router.post('/list', function (req, res) {
     console.log(err)
   })
 })
+router.post('/allList', function (req, res) {
+  db.Sell.find().then(function (data) {
+    let resultData = data.reverse()
+    res.send({
+      code: 'success',
+      data: resultData
+    })
+  }).catch(function (err) {
+    console.log(err)
+  })
+})
 // 修改
 router.post('/edit', function (req, res) {
   let reqData = req.body.sell

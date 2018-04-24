@@ -12,9 +12,11 @@ import 'font-awesome/css/font-awesome.css'
 import './style/reset.css'
 import './style/common.css'
 // 全国三级联动
-import VueAreaLinkage from 'vue-area-linkage'
-import 'vue-area-linkage/dist/index.css'
-Vue.use(VueAreaLinkage)
+// import VueAreaLinkage from 'vue-area-linkage'
+// import 'vue-area-linkage/dist/index.css'
+import Highcharts from 'highcharts'
+Vue.use(Highcharts)
+// Vue.use(VueAreaLinkage)
 // 要在use上面import进来
 Vue.use(ElementUI)
 Vue.config.productionTip = false

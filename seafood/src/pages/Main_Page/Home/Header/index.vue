@@ -33,7 +33,7 @@
         <el-menu default-active="" class="el-menu-demo" mode="horizontal" @select="handleSelect">
           <el-submenu index="1">
             <template slot="title">欢迎:<span class="account">{{account}}</span></template>
-            <el-menu-item index='1-1' @click='managerDetail' v-if="radio">个人信息</el-menu-item>
+            <el-menu-item index='1-1' @click='userDetail' v-if="radio">个人信息</el-menu-item>
             <el-menu-item index='1-1' @click='goSystem' v-else>返回后台</el-menu-item>
             <el-menu-item index='1-2' @click='loginOutHandle'>退出</el-menu-item>
           </el-submenu>
@@ -73,7 +73,7 @@ export default {
           routeSrc: '/seafood'
         },
         {
-          name: '海鲜做法',
+          name: '海鲜烹饪',
           routeSrc: '/life'
         },
         {
@@ -138,8 +138,8 @@ export default {
     handleSelect (key, keyPath) {
     },
     // 个人信息
-    managerDetail () {
-      // this.$router.push('/managerDetail')
+    userDetail () {
+      this.$router.push('/userDetail')
     },
     goSystem () {
       this.$router.push('/customerList')
