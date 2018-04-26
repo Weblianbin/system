@@ -3,7 +3,7 @@
     <div class="titleBox">
       <div class="name">销售数量展示:</div>
     </div>
-    <x-chart :id="id" :option="option"></x-chart>
+    <x-chart :id="id" :option="option" v-if="isShow"></x-chart>
   </div>
 </template>
 <script>
@@ -21,13 +21,14 @@ export default {
   data () {
     return {
       id: 'test',
+      isShow: false,
       option: {
         chart: {
           type: 'column'
         },
         title: {
           // 表头文字
-          text: '树状图展示销量'
+          text: ''
         },
         subtitle: {
           // 表头下文字
@@ -35,9 +36,12 @@ export default {
         },
         // x轴显示的内容
         xAxis: {
-          categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+          categories: [],
           // 可以显示一个方块，如果需要的话可以更改透明度和颜色
-          plotbands: [{from: 4.5, to: 6.5, color: 'rgba(68,170,213,0)'}]
+          plotbands: [{from: 4.5, to: 6.5, color: 'rgba(68,170,213,0)'}],
+          title: {
+            text: '月份'
+          }
         },
         // y轴显示的内容
         yAxis: {
@@ -58,28 +62,24 @@ export default {
         series: [
           // 两条数据
           {
-            name: '东京',
-            data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+            name: '鱼类',
+            data: []
           },
           {
-            name: '伦敦',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            name: '蟹类',
+            data: []
           },
           {
-            name: '伦敦',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            name: '虾类',
+            data: []
           },
           {
-            name: '伦敦',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            name: '食用藻类',
+            data: []
           },
           {
-            name: '伦敦',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-          },
-          {
-            name: '伦敦',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            name: '贝类',
+            data: []
           }
         ]
       }
@@ -92,8 +92,43 @@ export default {
       arr.forEach((item) => {
         item.time = transformMonth(item.time)
       })
-      console.log('arr--', arr)
-      console.log('arr--', JSON.stringify(arr))
+      var result = []
+      var timeArr = []
+      arr.forEach(function (item) {
+        timeArr.push(item.time)
+      })
+      // 数组去重,得到一个时间数组
+      timeArr = Array.from(new Set(timeArr.sort()))
+      timeArr.forEach(function (el, i) {
+        result[i] = {}
+        result[i].item = {}
+        result[i].item.month = el
+        result[i].item.yulei = 0
+        result[i].item.xielei = 0
+        result[i].item.xialei = 0
+        result[i].item.shiyongzaolei = 0
+        result[i].item.beilei = 0
+        arr.forEach(function (item) {
+          if (item.time === el) {
+            result[i].item.yulei += item.name === '鱼类' ? item.sellTotal : 0
+            result[i].item.xielei += item.name === '蟹类' ? item.sellTotal : 0
+            result[i].item.xialei += item.name === '虾类' ? item.sellTotal : 0
+            result[i].item.shiyongzaolei += item.name === '食用藻类' ? item.sellTotal : 0
+            result[i].item.beilei += item.name === '贝类' ? item.sellTotal : 0
+          }
+        })
+      })
+      for (let i = 0; i < result.length; i++) {
+        this.option.xAxis.categories.push(result[i].item.month)
+        this.option.series[0].data.push(result[i].item.yulei)
+        this.option.series[1].data.push(result[i].item.xielei)
+        this.option.series[2].data.push(result[i].item.xialei)
+        this.option.series[3].data.push(result[i].item.shiyongzaolei)
+        this.option.series[4].data.push(result[i].item.yulei)
+      }
+      this.isShow = true
+      console.log(result)
+      console.log('series', this.option.series)
     }
   }
 }
