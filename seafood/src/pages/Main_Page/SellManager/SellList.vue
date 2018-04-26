@@ -126,7 +126,7 @@ export default {
       }
       this.formObj = obj
       this.sellAddOrEdit = true
-      this.titleText = '编辑销售记录'
+      this.titleText = '编辑海鲜销量'
     },
     // 编辑请求
     async editSellHandle (data) {
@@ -206,7 +206,7 @@ export default {
       obj.seafoodTypes = this.seafoodTypes
       this.formObj = obj
       this.sellAddOrEdit = true
-      this.titleText = '新增销售记录'
+      this.titleText = '新增海鲜销量'
     },
     // 新增请求
     async addSellHandle (data) {

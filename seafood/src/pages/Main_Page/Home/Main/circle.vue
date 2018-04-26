@@ -134,13 +134,13 @@ export default {
   padding: 20px 15px;
 }
 .rowBox{
-  padding: 20px;
-  display: flex;
-  justify-content: space-around;
+  /* padding: 20px; */
+  /* display: flex;
+  justify-content: space-around; */
 }
 .box{
-  margin-bottom: 30px;
-  padding-bottom: 15px;
+  margin: 15px;
+  /* padding-bottom: 15px; */
   line-height: 20px;
   border-bottom: 1px solid white;
   cursor: pointer;

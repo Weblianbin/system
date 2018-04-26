@@ -126,7 +126,7 @@ export default {
       this.formObj = obj
       this.imgSrc = obj.photo
       this.seafoodAddOrEdit = true
-      this.titleText = '编辑海鲜名称'
+      this.titleText = '编辑海鲜产品'
     },
     // 编辑请求
     async editSeafoodHandle (data) {
@@ -209,7 +209,7 @@ export default {
       this.formObj = obj
       // this.urlaction = 'http://localhost:3000/seafood/add'
       this.seafoodAddOrEdit = true
-      this.titleText = '新增海鲜名称'
+      this.titleText = '新增海鲜产品'
     },
     // 新增请求
     async addSeafoodHandle (data) {

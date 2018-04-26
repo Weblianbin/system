@@ -82,7 +82,7 @@ export default {
           message: res.data.msg,
           type: 'success'
         })
-        this.$router.push('/customerList')
+        this.$router.push('/seafoodTypeList')
       } else {
         // 登录失败
         this.$message({

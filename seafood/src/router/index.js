@@ -101,7 +101,7 @@ const router = new Router({
           path: 'seafoodList',
           name: 'SeafoodList',
           component: SeafoodList,
-          meta: { title: '海鲜名称列表' }
+          meta: { title: '海鲜产品列表' }
         },
         {
           path: 'seafoodTypeList',
@@ -113,19 +113,19 @@ const router = new Router({
           path: 'sellList',
           name: 'SellList',
           component: SellList,
-          meta: { title: '海鲜销售列表' }
+          meta: { title: '海鲜销量列表' }
         },
         {
           path: 'lifeList',
           name: 'LifeList',
           component: LifeList,
-          meta: { title: '精致生活文章列表' }
+          meta: { title: '海鲜烹饪文章列表' }
         },
         {
           path: 'circleList',
           name: 'CircleList',
           component: CircleList,
-          meta: { title: '海鲜圈文章列表' }
+          meta: { title: '海鲜资讯列表' }
         },
         {
           path: 'managerDetail',
