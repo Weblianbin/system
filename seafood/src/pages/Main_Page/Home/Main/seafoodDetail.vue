@@ -11,6 +11,9 @@
         价格:&nbsp;&nbsp;{{content.sale}}
       </div>
       <div>
+        库存量(kg):&nbsp;&nbsp;{{content.count}}
+      </div>
+      <div>
         产地:&nbsp;&nbsp;{{content.source}}
       </div>
       <div>

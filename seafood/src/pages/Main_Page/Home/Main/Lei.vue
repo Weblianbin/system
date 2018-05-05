@@ -4,14 +4,14 @@
       <img src="@/assets/Main/海产品.jpg" alt="" style="width:100%;height:100%;">
     </div> -->
     <div class="seafoodType">
-      <!-- <div class="title">
-        海产品:
-      </div> -->
       <el-form>
         <el-form-item label="" label-width="0px">
           <el-input  style="width:300px;margin: 0 auto" size="large" placeholder="请输人查询内容..." v-model="search" suffix-icon="el-icon-search"></el-input>
         </el-form-item>
       </el-form>
+      <div class="title">
+        <div class="name">海鲜种类:&nbsp;&nbsp;{{leiHandle}}</div>
+      </div>
       <el-row :gutter="24" class="rowBox">
         <el-col :span="12" class="box" v-for="(item,index) in tableData1" :key="index">
           <div>
@@ -64,7 +64,7 @@
   </div>
 </template>
 <script>
-import { list } from '@/api/seafood.js'
+import { leiList } from '@/api/seafood.js'
 import seafoodDetail from './seafoodDetail'
 import { transformDate } from '@/utils/dateTransform.js'
 export default {
@@ -72,7 +72,15 @@ export default {
     seafoodDetail
   },
   created () {
-    this.seafoodListHandle()
+    let text = null
+    text = this.leiHandle
+    this.seafoodListHandle(text)
+  },
+  watch: {
+    leiHandle (val) {
+      console.log('val', val)
+      this.seafoodListHandle(val)
+    }
   },
   computed: {
     tableData1: function () {
@@ -88,6 +96,11 @@ export default {
         }
       })
       return arr
+    },
+    leiHandle () {
+      let result = ''
+      result = this.$store.getters.lei
+      return result
     }
   },
   data () {
@@ -98,21 +111,28 @@ export default {
       content: {},
       title: '',
       centerDialogVisible: false,
-      search: ''
+      search: '',
+      lei: ''
     }
   },
   methods: {
+    test () {
+      console.log('test', this.lei)
+    },
     pageChange (page) {
       this.pageIndex = page
       this.seafoodListHandle()
     },
-    async seafoodListHandle () {
+    async seafoodListHandle (text) {
+      console.log('text', text)
       // 用于清空,避免重复
       // let obj = {}
       // obj.index = this.pageIndex
       // obj.size = 4
       // this.pageObj = obj
-      let res = await list()
+      let res = await leiList({
+        text: text
+      })
       let arr = [...res.data.data]
       arr.forEach((item) => {
         item.time = transformDate(item.time)
@@ -121,6 +141,7 @@ export default {
       // this.pageCount = res.data.count
     },
     openNews (index, item) {
+      console.log('this.leiHandle', this.leiHandle)
       console.log('>>>>>>>', item)
       this.content = item
       this.title = item.seafoodName
@@ -146,13 +167,18 @@ export default {
 }
 .title{
   font-size: 20px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   text-align: center;
-  border-radius: 50%;
-  background-color: #409EFF;
   color: white;
   height: 50px;
   line-height: 50px;
+}
+.title .name{
+  width: 20%;
+  border-radius: 50px;
+  height: 50px;
+  background-color: #409EFF;
+  margin: 0 auto;
 }
 .rowBox{
   padding: 20px;

@@ -12,6 +12,7 @@ import SeafoodType from '@/pages/Main_Page/Home/Main/seafoodType.vue'
 import Seafood from '@/pages/Main_Page/Home/Main/seafood.vue'
 import Life from '@/pages/Main_Page/Home/Main/life.vue'
 import Circle from '@/pages/Main_Page/Home/Main/circle.vue'
+import Lei from '@/pages/Main_Page/Home/Main/Lei.vue'
 import About from '@/pages/Main_Page/Home/Main/about.vue'
 import UserDetail from '@/pages/Main_Page/Home/Main/userDetail.vue'
 import CustomerList from '@/pages/Main_Page/CustomerManager/CustomerList.vue'
@@ -54,6 +55,10 @@ const router = new Router({
         {
           path: '/about',
           component: About
+        },
+        {
+          path: '/lei',
+          component: Lei
         }
       ]
     },

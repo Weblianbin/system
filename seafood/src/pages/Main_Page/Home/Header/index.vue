@@ -6,7 +6,28 @@
         <div class="name">Seafood</div>
       </div>
       <div class="guide">
-        <div
+        <el-menu :router='true' class="el-menu-demo" mode="horizontal" @select="handleSelect">
+            <el-menu-item index="/home">首页</el-menu-item>
+            <el-submenu index="2">
+              <template slot="title">海鲜产品</template>
+              <el-menu-item index="/seafood">全部产品</el-menu-item>
+              <el-submenu index="2-4">
+                <template slot="title">海鲜分类</template>
+                <el-menu-item index="/lei"
+                  v-for="(item,index) in navArr"
+                  :key="index"
+                >
+                  <div @click="goItem(item)">
+                    {{item.name}}
+                  </div>
+                </el-menu-item>
+              </el-submenu>
+            </el-submenu>
+            <el-menu-item index="/life">海鲜烹饪</el-menu-item>
+            <el-menu-item index="/circle">海鲜资讯</el-menu-item>
+            <el-menu-item index="/about">联系我们</el-menu-item>
+          </el-menu>
+        <!-- <div
           v-for="(item,index) in navArr"
           :key="index"
           class="title"
@@ -16,7 +37,7 @@
           <div>
             {{item.name}}
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="userBox" v-if="!account">
         <div @click="userLogin" class="userShow">
@@ -59,34 +80,48 @@ export default {
   data () {
     return {
       activeIndex: 0,
+      // navArr: [
+      //   {
+      //     name: '蟹类'
+      //   },
+      //   {
+      //     name: '虾类'
+      //   },
+      //   {
+      //     name: '鱼类'
+      //   },
+      //   {
+      //     name: '贝类'
+      //   },
+      //   {
+      //     name: '食用藻类'
+      //   }
+      // ],
       navArr: [
         {
-          name: '首页',
-          routeSrc: '/home'
-        },
-        // {
-        //   name: '海产品种类',
-        //   routeSrc: '/seafoodType'
-        // },
-        {
-          name: '海鲜产品',
-          routeSrc: '/seafood'
+          name: '蟹类',
+          routeSrc: 'xie'
         },
         {
-          name: '海鲜烹饪',
-          routeSrc: '/life'
+          name: '虾类',
+          routeSrc: 'xia'
         },
         {
-          name: '海鲜资讯',
-          routeSrc: '/circle'
+          name: '鱼类',
+          routeSrc: 'yu'
         },
         {
-          name: '联系我们',
-          routeSrc: '/about'
+          name: '贝类',
+          routeSrc: 'bei'
+        },
+        {
+          name: '食用藻类',
+          routeSrc: 'shiyongzao'
         }
       ],
       isLogin: true,
-      isManager: true
+      isManager: true,
+      route: null
     }
   },
   created () {
@@ -119,8 +154,7 @@ export default {
   },
   methods: {
     goItem (item, index) {
-      this.$router.push(item.routeSrc)
-      this.activeIndex = index
+      this.$store.dispatch('Lei', item.name)
     },
     userLogin () {
       console.log('用户登录')
@@ -142,7 +176,7 @@ export default {
       this.$router.push('/userDetail')
     },
     goSystem () {
-      this.$router.push('/customerList')
+      this.$router.push('/seafoodTypeList')
     }
   }
 }

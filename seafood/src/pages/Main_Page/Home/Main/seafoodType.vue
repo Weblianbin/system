@@ -2,9 +2,9 @@
   <div class="seafoodTypeBox">
     <div class="seafoodType ">
       <div class="title">
-        <div class="name">常见海鲜种类:</div>
+        <div class="name">海鲜种类简介:</div>
       </div>
-      <el-row :gutter="24" class="rowBox">
+      <el-row :gutter="24" class="rowBox" v-if="cardArr.length > 0">
         <el-col :span="8" class="box" v-for="(item,index) in cardArr" :key="index">
           <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">

@@ -10,6 +10,9 @@ export function seafoodList (data) {
 export function list (data) {
   return ajaxPost('/seafood/list', data)
 }
+export function leiList (data) {
+  return ajaxPost('/seafood/leiList', data)
+}
 // 修改
 export function editSeafood (data) {
   return ajaxPost('/seafood/edit', data)

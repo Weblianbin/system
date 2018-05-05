@@ -18,6 +18,9 @@
       <el-form-item label="海鲜价格" prop="sale">
         <el-input type="text" placeholder="请输入价格" v-model="formObj.sale"></el-input>
       </el-form-item>
+      <el-form-item label="库存量(kg)" prop="count">
+        <el-input type="text" placeholder="请输入库存量" v-model="formObj.count"></el-input>
+      </el-form-item>
       <el-form-item label="海鲜产地" prop="source">
         <el-input type="text" placeholder="请输入海鲜名称" v-model="formObj.source"></el-input>
       </el-form-item>
@@ -107,6 +110,7 @@ export default {
           newObj.seafoodInfo = this.formObj.seafoodInfo
           // 只向服务器传最后一张图片
           newObj.photo = this.formObj.photo
+          newObj.count = this.formObj.count
           if (this.selectFlag) {
             newObj._id = this.formObj._id
           }

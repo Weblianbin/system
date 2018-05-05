@@ -72,7 +72,8 @@ var seafood = new db.Schema({
   photo: '',
   sale: '',
   source: '',
-  time: ''
+  time: '',
+  count: 0
 })
 var Seafood = db.model('Seafood', seafood)
 

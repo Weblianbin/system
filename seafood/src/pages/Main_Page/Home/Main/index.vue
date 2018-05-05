@@ -1,7 +1,7 @@
 <template>
   <div class="Main">
     <div class="imgBox">
-      <el-carousel :interval="2000" arrow="always" height="600px">
+      <el-carousel :interval="1500" arrow="always" height="600px">
         <el-carousel-item v-for="(item,index) in imgArr" :key="index" style="text-align: center;">
           <img :src="item.src" alt="" style="width:100%;height:100%;">
         </el-carousel-item>
