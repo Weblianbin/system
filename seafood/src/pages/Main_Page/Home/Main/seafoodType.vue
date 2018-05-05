@@ -42,7 +42,6 @@ export default {
     async seafoodTypeListAllHandle () {
       let res = await seafoodTypeListAll()
       this.cardArr = res.data.data
-      console.log('res', res)
     }
   }
 }

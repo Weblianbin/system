@@ -65,38 +65,9 @@
 </template>
 <script>
 export default {
-  // watch: {
-  //   $route (val) {
-  //     console.log('>>>>>>>>>>>', val)
-  //     var arr = ['/home', '/seafood', '/life', '/circle', 'about']
-  //     for (let i = 0; i < arr.length; i++) {
-  //       if (arr[i] === val.path) {
-  //         console.log('i', i)
-  //         this.activeIndex = i
-  //       }
-  //     }
-  //   }
-  // },
   data () {
     return {
       activeIndex: 0,
-      // navArr: [
-      //   {
-      //     name: '蟹类'
-      //   },
-      //   {
-      //     name: '虾类'
-      //   },
-      //   {
-      //     name: '鱼类'
-      //   },
-      //   {
-      //     name: '贝类'
-      //   },
-      //   {
-      //     name: '食用藻类'
-      //   }
-      // ],
       navArr: [
         {
           name: '蟹类',

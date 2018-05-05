@@ -62,7 +62,6 @@ export default {
         }
       })
       // this.pageCount = Math.ceil(arr.length / 1)
-      console.log('arr', arr)
       return arr
     }
   },
@@ -70,7 +69,6 @@ export default {
     // async allListHandle () {
     //   let res = await allList()
     //   this.cardArr = res.data.data
-    //   console.log('res', res)
     // },
     pageChange (page) {
       this.pageIndex = page

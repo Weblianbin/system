@@ -12,7 +12,6 @@ export function strToArr (str) {
   return arr
 }
 export function strTextSlice (str) {
-  console.log(str)
   let result = null
   if (str.length > 90) {
     result = str.slice(0, 90) + '......'

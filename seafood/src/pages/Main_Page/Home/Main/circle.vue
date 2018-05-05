@@ -83,7 +83,6 @@ export default {
         }
       })
       // this.pageCount = Math.ceil(arr.length / 1)
-      console.log('arr', arr)
       return arr
     }
   },
@@ -106,7 +105,6 @@ export default {
       // this.pageCount = res.data.count
     },
     openNews (index, item) {
-      console.log('>>>>>>>', item)
       this.content = item.content
       this.title = item.title
       this.centerDialogVisible = true

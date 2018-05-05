@@ -61,15 +61,12 @@ export default {
     async userDetailHandle () {
       var data = null
       data = JSON.parse(window.localStorage.getItem('userInfo')).account
-      console.log('data', data)
       var res = await userDetail({
         'user': {
           account: data
         }
       })
       this.userInfo = res.data.dataObj[0]
-      console.log(res)
-      console.log('this.userInfo', this.userInfo)
     },
     // 修改密码
     changPsw () {

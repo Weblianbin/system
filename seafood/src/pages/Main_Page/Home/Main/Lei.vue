@@ -78,7 +78,6 @@ export default {
   },
   watch: {
     leiHandle (val) {
-      console.log('val', val)
       this.seafoodListHandle(val)
     }
   },
@@ -117,14 +116,12 @@ export default {
   },
   methods: {
     test () {
-      console.log('test', this.lei)
     },
     pageChange (page) {
       this.pageIndex = page
       this.seafoodListHandle()
     },
     async seafoodListHandle (text) {
-      console.log('text', text)
       // 用于清空,避免重复
       // let obj = {}
       // obj.index = this.pageIndex
@@ -141,8 +138,6 @@ export default {
       // this.pageCount = res.data.count
     },
     openNews (index, item) {
-      console.log('this.leiHandle', this.leiHandle)
-      console.log('>>>>>>>', item)
       this.content = item
       this.title = item.seafoodName
       this.centerDialogVisible = true

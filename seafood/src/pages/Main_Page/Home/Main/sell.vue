@@ -127,8 +127,6 @@ export default {
         this.option.series[4].data.push(result[i].item.yulei)
       }
       this.isShow = true
-      console.log(result)
-      console.log('series', this.option.series)
     }
   }
 }

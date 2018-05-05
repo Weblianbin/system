@@ -121,7 +121,6 @@ export default {
       // this.pageCount = res.data.count
     },
     openNews (index, item) {
-      console.log('>>>>>>>', item)
       this.content = item
       this.title = item.seafoodName
       this.centerDialogVisible = true

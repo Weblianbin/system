@@ -22,7 +22,6 @@ import SellList from '@/pages/Main_Page/SellManager/SellList.vue'
 import LifeList from '@/pages/Main_Page/LifeManager/LifeList.vue'
 import CircleList from '@/pages/Main_Page/CircleManager/CircleList.vue'
 // import { getUserInfo } from '@/utils/auth'
-// console.log(store)
 Vue.use(Router)
 const router = new Router({
   routes: [

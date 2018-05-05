@@ -93,7 +93,6 @@ export default {
     liuyan () {
       this.$refs.formObj.validate((valid) => {
         if (valid) {
-          console.log('this.formObj', this.formObj)
           if (JSON.parse(window.localStorage.getItem('userInfo'))) {
             this.userMessageHandle()
           } else {
@@ -127,7 +126,6 @@ export default {
           this.formObj.phone = ''
           this.formObj.info = ''
         }
-        console.log('res', res)
       } catch (e) {
         console.log('e', e)
       }
